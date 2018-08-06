@@ -1,4 +1,38 @@
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<script type="text/javascript" src="js/jquery.js"></script>
+<link href="css/style.css" rel="stylesheet" type="text/css" />
 <%
     String path = request.getContextPath();
     String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
 %>
+<script type="text/javascript">
+    $(document).ready(function(){
+        $(".clickUI").click(function(){
+            $(".tipUI").fadeIn(200);
+        });
+        $(".tiptopUI a").click(function(){
+            $(".tipUI").fadeOut(200);
+        });
+        $(".sureUI").click(function(){
+            $(".tipUI").fadeOut(100);
+        });
+        $(".cancelUI").click(function(){
+            $(".tipUI").fadeOut(100);
+        });
+
+
+        $(".click").click(function(){
+            $(".tip").fadeIn(200);
+        });
+        $(".tiptop a").click(function(){
+            $(".tip").fadeOut(200);
+        });
+        $(".sure").click(function(){
+            $(".tip").fadeOut(100);
+        });
+        $(".cancel").click(function(){
+            $(".tip").fadeOut(100);
+        });
+
+    });
+</script>

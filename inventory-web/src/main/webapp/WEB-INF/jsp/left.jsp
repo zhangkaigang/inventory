@@ -40,7 +40,7 @@
             <span><img src="images/leftico01.png" /></span>资料管理
         </div>
         <ul class="menuson">
-            <li class="active"><cite></cite><a href="<%=basePath%>right" target="rightFrame">数据列表</a><i></i></li>
+            <li class="active"><cite></cite><a href="<%=basePath%>user" target="rightFrame">用户管理</a><i></i></li>
         </ul>
     </dd>
 

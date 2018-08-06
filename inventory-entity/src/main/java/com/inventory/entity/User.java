@@ -7,10 +7,17 @@ package com.inventory.entity;
 public class User {
     // 主键
     private int id;
-    // 用户名
-    private String userName;
+    // 登录名
+    private String loginName;
     // 密码
     private String password;
+    // 姓名
+    private String name;
+    // 创建时间
+    private String createDate;
+    // 删除状态
+    private String deleteState;
+
     public int getId() {
         return id;
     }
@@ -19,12 +26,12 @@ public class User {
         this.id = id;
     }
 
-    public String getUserName() {
-        return userName;
+    public String getLoginName() {
+        return loginName;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public void setLoginName(String loginName) {
+        this.loginName = loginName;
     }
 
     public String getPassword() {
@@ -33,5 +40,29 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getCreateDate() {
+        return createDate;
+    }
+
+    public void setCreateDate(String createDate) {
+        this.createDate = createDate;
+    }
+
+    public String getDeleteState() {
+        return deleteState;
+    }
+
+    public void setDeleteState(String deleteState) {
+        this.deleteState = deleteState;
     }
 }

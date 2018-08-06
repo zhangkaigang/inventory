@@ -27,9 +27,4 @@ public class IndexController {
     public String left(){
         return "left";
     }
-
-    @RequestMapping("/right")
-    public String right(){
-        return "right";
-    }
 }
