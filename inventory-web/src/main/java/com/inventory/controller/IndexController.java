@@ -13,18 +13,17 @@ public class IndexController {
      * 打开首页
      * @return
      */
-    @RequestMapping(value="/main")
-    public String main(){
-        return "main";
+    @RequestMapping("/index")
+    public String index(){
+        return "index";
     }
 
-    @RequestMapping("/top")
-    public String top(){
-        return "top";
-    }
-
-    @RequestMapping("/left")
-    public String left(){
-        return "left";
+    /**
+     * 跳转到登录页面
+     * @return
+     */
+    @RequestMapping("/login")
+    public String toLogin(){
+        return "login";
     }
 }

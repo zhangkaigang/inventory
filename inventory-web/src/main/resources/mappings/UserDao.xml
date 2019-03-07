@@ -1,23 +1,25 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.inventory.dao.UserDao">
-    <resultMap id="BaseResultMap" type="com.inventory.entity.User">
-        <id column="id" property="id"/>
-        <result column="login_name" property="loginName"/>
-        <result column="password" property="password"/>
-        <result column="name" property="name"/>
-        <result column="create_date" property="createDate"/>
-        <result column="delete_state" property="deleteState"/>
+    <resultMap id="BaseResultMap" type="com.inventory.pojo.User">
+        <id column="id"  property="id"/>
+        <result column="login_name"  property="loginName"/>
+        <result column="password"  property="password"/>
+        <result column="real_name"  property="realName"/>
+        <result column="create_date"  property="createDate"/>
+        <result column="delete_state"  property="deleteState"/>
+        <result column="is_job"  property="isJob" />
     </resultMap>
+    <sql id="Base_Column_List">
+        id, login_name, password, real_name, is_job, create_date, delete_state
+    </sql>
 
-    <select id="selectListNoPage" parameterType="com.inventory.entity.User" resultMap="BaseResultMap">
-        SELECT id,login_name,password,name,create_date
-        FROM psi_user WHERE delete_state='0'
-    </select>
-
-    <select id="findUsersById" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-        SELECT id,username,password
-        FROM psi_user WHERE id=#{id}
+    <select id="findUserByLoginName" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from psi_user
+        WHERE
+        login_name=#{loginName} and delete_state = 0
     </select>
 
 

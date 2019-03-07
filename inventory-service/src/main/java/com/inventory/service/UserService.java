@@ -1,14 +1,18 @@
 package com.inventory.service;
 
-import com.inventory.entity.User;
+import com.inventory.pojo.User;
 
 import java.util.List;
 
 /**
- * Created by zkaigang on 2018/7/26.
+ * @author zkaigang
  */
 public interface UserService {
-    List<User> selectListNoPage(User user);
+    /**
+     * 根据登录名查询用户数据
+     * @param loginName
+     * @return
+     */
+    User findUserByLoginName(String loginName);
 
-    User findUsersById(Integer id);
 }

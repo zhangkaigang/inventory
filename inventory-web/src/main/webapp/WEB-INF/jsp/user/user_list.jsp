@@ -1,3 +1,4 @@
+<%@page pageEncoding="UTF-8" contentType="text/html; charset=UTF-8" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Frameset//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-frameset.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <%@include file="../common.jspf"%>
@@ -49,6 +50,7 @@
         <tbody>
             <c:forEach items="${userList}" var="c" varStatus="st">
                 <tr>
+                    <td><input name="" type="checkbox" value="" /></td>
                     <td>${c.loginName}</td>
                     <td>${c.name}</td>
                     <td>${c.createDate}</td>
@@ -78,20 +80,33 @@
 
     <%--添加、修改--%>
     <div class="tipUI">
-        <div class="tiptopUI"><span>添加用户</span><a></a></div>
-
-        <div class="tipinfoUI">
-            <span><img src="images/ticon.png" /></span>
-            <div class="tiprightUI">
-                <p>是否确认对信息的修改 ？</p>
-                <cite>如果是请点击确定按钮 ，否则请点取消。</cite>
+        <form action="<%=basePath%>user/addUser">
+            <div class="tiptopUI"><span>添加用户</span><a></a></div>
+            <div class="tipinfoUI">
+                    <table class="tableInfo">
+                        <tr>
+                            <td>
+                                <label>登录名</label>
+                            </td>
+                            <td>
+                                <input name="loginName" type="text" class="dfinput" value=""/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label>姓名</label>
+                            </td>
+                            <td>
+                                <input name="name" type="text" class="dfinput" value=""/>
+                            </td>
+                        </tr>
+                    </table>
             </div>
-        </div>
-
-        <div class="tipbtnUI">
-            <input name="" type="button"  class="sureUI" value="确定" />&nbsp;
-            <input name="" type="button"  class="cancelUI" value="取消" />
-        </div>
+            <div class="tipbtnUI">
+                <input name="" type="submit"  class="sureUI" value="确定" />&nbsp;
+                <input name="" type="button"  class="cancelUI" value="取消" />
+            </div>
+        </form>
     </div>
 
     <%--删除--%>

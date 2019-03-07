@@ -16,6 +16,13 @@
             <artifactId>inventory-common</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
+
+        <!-- oval 参数校验 -->
+        <dependency>
+            <groupId>net.sf.oval</groupId>
+            <artifactId>oval</artifactId>
+            <version>1.86</version>
+        </dependency>
     </dependencies>
 
 </project>

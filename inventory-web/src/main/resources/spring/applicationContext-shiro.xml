@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!--申明缓存管理器-->
+    <!--本地缓存,不推荐-->
+    <!--<bean id="cacheManager" class="org.apache.shiro.cache.MemoryConstrainedCacheManager"/>-->
+    <!-- 缓存管理器使用Ehcache实现 -->
+    <bean id="cacheManager" class="org.apache.shiro.cache.ehcache.EhCacheManager">
+        <property name="cacheManagerConfigFile" value="classpath:config/ehcache.xml" />
+    </bean>
+
+    <!--密码凭证管理器-->
+    <bean id="credentialsMatcher" class="org.apache.shiro.authc.credential.HashedCredentialsMatcher">
+        <property name="hashAlgorithmName" value="md5"/>
+        <!--次数-->
+        <property name="hashIterations" value="1"/>
+    </bean>
+
+    <!--================================配置自定义的realm====================================-->
+    <bean id="myRealm" class="com.inventory.shrio.MyRealm">
+        <property name="credentialsMatcher" ref="credentialsMatcher"/>
+        <!--配置缓存时,改为true-->
+        <property name="cachingEnabled" value="true"/>
+    </bean>
+
+    <!--记住我的cookie-->
+    <bean id="rememberMeCookie" class="org.apache.shiro.web.servlet.SimpleCookie">
+        <constructor-arg value="rememberMe"/>
+        <property name="httpOnly" value="true"/>
+        <!--设置cookie有效期秒-->
+        <property name="maxAge" value="60"/>
+    </bean>
+    <!--记住我管理器-->
+    <bean id="rememberMeManager" class="org.apache.shiro.web.mgt.CookieRememberMeManager">
+        <property name="cookie" ref="rememberMeCookie"/>
+    </bean>
+    <!--安全管理器-->
+    <bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
+        <property name="realm" ref="myRealm"/>
+        <!--注入记住我-->
+        <property name="rememberMeManager" ref="rememberMeManager"/>
+        <!--缓存管理器-->
+        <property name="cacheManager" ref="cacheManager"/>
+    </bean>
+
+    <!--=====================开启切面支持,spring拦截支持=====================-->
+    <bean class="org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor">
+        <property name="securityManager" ref="securityManager"/>
+    </bean>
+    <!--调用securityManagerUtils.setSecurityManager-->
+    <bean class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
+        <property name="staticMethod" value="org.apache.shiro.SecurityUtils.setSecurityManager"/>
+        <property name="arguments" ref="securityManager"/>
+    </bean>
+    <!--==============================shiro的web过滤器====================================-->
+    <bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
+        <property name="securityManager" ref="securityManager"/>
+        <property name="loginUrl" value="/login"/>
+        <property name="successUrl" value="/home"/>
+        <property name="filterChainDefinitions">
+            <value>
+                <!--
+                    anon:匿名使用,用户不登录也可以访问,如 /item/** = anon
+                    authc:认证后才能使用           /order/** = authc
+                    roles:需要特定角色才能访问    /admin/** = roles["admin,test"]
+                    perms:需要特定权限才能访问    /admin/user/** = perms["user:add,user:delete"]
+                    user:必须存在用户,登录而不限制检查    /** = user
+
+                    rest: restFul风格 /adimn/** = rest[user]
+                    port: 限制访问端口 /admin/** = port[8088]
+                    authcBasic: 限制协议请求是https
+                    ssl: 安全的url请求,请求协议是http
+                -->
+                /login = anon
+                <!--切记此处路径名与前台传.递的路径名是一致的,除了在此处配置以外,还需要在spring.xml中进行配置-->
+                /css/** = anon<!--设置静态资源文件为游客可访问-->
+                /js/** = anon<!--设置静态资源文件为游客可访问-->
+                /images/** = anon<!--设置静态资源文件为游客可访问-->
+                <!--配置用户退出
+                不用我们去实现退出，只要去访问一个退出的url（该 url是可以不存在），由LogoutFilter拦截住，清除session。
+                在applicationContext-shiro.xml配置LogoutFilter
+                -->
+            </value>
+        </property>
+    </bean>
+
+    <!--生命周期的配置-->
+    <bean id="lifecycleBeanPostProcessor" class="org.apache.shiro.spring.LifecycleBeanPostProcessor"/>
+</beans>
