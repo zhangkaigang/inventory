@@ -17,9 +17,9 @@
     <select id="findUserByLoginName" resultMap="BaseResultMap">
         select
         <include refid="Base_Column_List" />
-        from psi_user
+        from user
         WHERE
-        login_name=#{loginName} and delete_state = 0
+        login_name=#{loginName} and delete_state = '0'
     </select>
 
 

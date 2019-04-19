@@ -4,24 +4,33 @@ var picCode;
 // 初始化
 function init(){
     // 初始化图片验证码
-    picCode = drawPic();
+    // picCode = drawPic();
 }
 
-layui.use(['form' ,'layer'], function() {
+
+
+/*layui.use(['form' ,'layer'], function() {
     var form = layui.form, layer = layui.layer;
     // 表单监听事件-监听登录事件
     form.on("submit(login)", function(data){
-        // 得到表单元素集合
+        console.log('表单提交开始');
+        var flag = selfFuns.checkParams();
+        // if(flag != false){
+            $("#loginForm").submit();
+        // }
+        /!*!// 得到表单元素集合
         var formVal = data.field;
         var returnData = selfFuns.login(formVal);
         if(returnData && returnData.result == "SUCCESS"){
-            layer.alert("登录成功");
+            layer.alert("登录成功", function(){
+                location.href = contextPath+"/user/home";
+            });
         }else{
             layer.alert(returnData.msg);
-        }
+        }*!/
         return false;
     });
-});
+});*/
 
 
 var selfFuns = {

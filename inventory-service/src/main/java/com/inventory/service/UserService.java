@@ -2,10 +2,11 @@ package com.inventory.service;
 
 import com.inventory.pojo.User;
 
-import java.util.List;
-
 /**
- * @author zkaigang
+ * @Description:TODO
+ * @Author:zhang.kaigang
+ * @Date:2019/4/18 14:56
+ * @Version:1.0
  */
 public interface UserService {
     /**

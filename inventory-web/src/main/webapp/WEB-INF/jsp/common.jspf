@@ -5,12 +5,12 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="format-detection" content="telephone=no">
 
-<link rel="stylesheet" type="text/css" href="js/layui/css/layui.css">
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/js/layui/css/layui.css">
+<link rel="shortcut icon" href="${pageContext.request.contextPath}/images/logo.png" type="image/x-icon" />
 
-
-<script type="text/javascript" src="js/jquery-2.1.1.min.js"></script>
-<script type="text/javascript" src="js/layui/layui.js"></script>
-<script type="text/javascript" src="js/common.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery-2.1.1.min.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/js/layui/layui.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/js/common.js"></script>
 <script type="text/javascript">
     var contextPath = '<%=request.getContextPath()%>';
 </script>

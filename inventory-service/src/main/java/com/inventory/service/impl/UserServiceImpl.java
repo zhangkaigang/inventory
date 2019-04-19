@@ -6,10 +6,11 @@ import com.inventory.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-
 /**
- * @author zkaigang
+ * @Description:TODO
+ * @Author:zhang.kaigang
+ * @Date:2019/4/18 14:56
+ * @Version:1.0
  */
 @Service
 public class UserServiceImpl implements UserService {

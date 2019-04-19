@@ -3,9 +3,12 @@ package com.inventory.pojo;
 import java.io.Serializable;
 
 /**
- * @author zkaigang
+ * @Description:用户信息POJO类
+ * @Author:zhang.kaigang
+ * @Date:2019/4/18 14:56
+ * @Version:1.0
  */
-public class User implements Serializable {
+public class User extends PublicPojo implements Serializable {
     /**
      * 主键
      */
@@ -23,26 +26,9 @@ public class User implements Serializable {
      */
     private String realName;
     /**
-     * 创建时间
-     */
-    private String createDate;
-    /**
-     * 删除状态
-     */
-    private String deleteState;
-
-    /**
      * 是否已离职
      */
     private String isJob;
-
-    public String getIsJob() {
-        return isJob;
-    }
-
-    public void setIsJob(String isJob) {
-        this.isJob = isJob;
-    }
 
     public Integer getId() {
         return id;
@@ -76,19 +62,11 @@ public class User implements Serializable {
         this.realName = realName;
     }
 
-    public String getCreateDate() {
-        return createDate;
+    public String getIsJob() {
+        return isJob;
     }
 
-    public void setCreateDate(String createDate) {
-        this.createDate = createDate;
-    }
-
-    public String getDeleteState() {
-        return deleteState;
-    }
-
-    public void setDeleteState(String deleteState) {
-        this.deleteState = deleteState;
+    public void setIsJob(String isJob) {
+        this.isJob = isJob;
     }
 }
