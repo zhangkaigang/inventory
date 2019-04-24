@@ -1,7 +1,7 @@
 package com.inventory.service.impl;
 
 import com.inventory.dao.PermissionDao;
-import com.inventory.entity.PermissionVO;
+import com.inventory.vo.PermissionVO;
 import com.inventory.service.AuthService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

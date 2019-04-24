@@ -1,6 +1,6 @@
 package com.inventory.service;
 
-import com.inventory.pojo.User;
+import com.inventory.po.User;
 
 /**
  * @Description:TODO

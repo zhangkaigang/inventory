@@ -1,4 +1,4 @@
-package com.inventory.pojo;
+package com.inventory.po;
 
 /**
  * @Description:POJO类公有变量
@@ -6,7 +6,7 @@ package com.inventory.pojo;
  * @Date:2019/4/18 14:56
  * @Version:1.0
  */
-public class PublicPojo {
+public class PublicPO {
 
     /**
      * 创建人

@@ -1,8 +1,8 @@
 package com.inventory.shiro;
 
-import com.inventory.entity.PermissionVO;
-import com.inventory.entity.UserVO;
-import com.inventory.pojo.User;
+import com.inventory.vo.PermissionVO;
+import com.inventory.vo.UserVO;
+import com.inventory.po.User;
 import com.inventory.service.AuthService;
 import com.inventory.service.UserService;
 import org.apache.shiro.SecurityUtils;

@@ -1,17 +1,23 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.inventory.dao.UserDao">
-    <resultMap id="BaseResultMap" type="com.inventory.pojo.User">
+    <resultMap id="BaseResultMap" type="com.inventory.po.User">
         <id column="id"  property="id"/>
         <result column="login_name"  property="loginName"/>
         <result column="password"  property="password"/>
         <result column="real_name"  property="realName"/>
-        <result column="create_date"  property="createDate"/>
-        <result column="delete_state"  property="deleteState"/>
         <result column="is_job"  property="isJob" />
+
+        <result column="create_op"  property="createOp"/>
+        <result column="create_date"  property="createDate" jdbcType="TIMESTAMP"/>
+        <result column="modify_op"  property="modifyOp"/>
+        <result column="modify_date"  property="modifyDate" jdbcType="TIMESTAMP"/>
+        <result column="delete_state"  property="deleteState"/>
+        <result column="delete_date"  property="deleteDate" jdbcType="TIMESTAMP"/>
     </resultMap>
     <sql id="Base_Column_List">
-        id, login_name, password, real_name, is_job, create_date, delete_state
+        id, login_name, password, real_name, is_job,
+        create_op, create_date, modify_op, modify_date, delete_state, delete_date
     </sql>
 
     <select id="findUserByLoginName" resultMap="BaseResultMap">

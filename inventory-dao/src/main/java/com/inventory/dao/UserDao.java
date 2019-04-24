@@ -1,6 +1,6 @@
 package com.inventory.dao;
 
-import com.inventory.pojo.User;
+import com.inventory.po.User;
 
 /**
  * @Description:用户信息DAO类

@@ -8,8 +8,8 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>后台管理系统</title>
-    <%@include file="common.jspf"%>
+
+    <%@include file="/commonHead.jsp"%>
     <style type="text/css">
         .layui-form-checkbox[lay-skin=primary]{height:fit-content !important;}
     </style>

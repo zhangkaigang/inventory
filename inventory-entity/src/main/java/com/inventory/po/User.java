@@ -1,4 +1,4 @@
-package com.inventory.pojo;
+package com.inventory.po;
 
 import java.io.Serializable;
 
@@ -8,7 +8,7 @@ import java.io.Serializable;
  * @Date:2019/4/18 14:56
  * @Version:1.0
  */
-public class User extends PublicPojo implements Serializable {
+public class User extends PublicPO implements Serializable {
     /**
      * 主键
      */

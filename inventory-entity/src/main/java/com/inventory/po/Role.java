@@ -1,4 +1,4 @@
-package com.inventory.pojo;
+package com.inventory.po;
 
 /**
  * @Description:角色信息POJO类
@@ -6,7 +6,7 @@ package com.inventory.pojo;
  * @Date:2019/4/18 14:56
  * @Version:1.0
  */
-public class Role extends PublicPojo {
+public class Role extends PublicPO {
     /**
      * 主键
      */

@@ -56,12 +56,10 @@ public class IndexController {
 
     /**
      * 首页
-     * @param request
-     * @param response
      * @return
      */
     @RequestMapping(value = "home")
-    public String home(HttpServletRequest request, HttpServletResponse response){
+    public String home(){
         return "home";
     }
 }

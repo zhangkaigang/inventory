@@ -38,7 +38,7 @@ var getMenus=function(menuList){
                     a.append("<span class='layui-nav-more'></span>");
                     var dl=$("<dl class='layui-nav-child'></dl>");
                     for (var y in childArry) {
-                        var dd=$("<dd><a href='"+childArry[y].page+"'>"+childArry[y].permissionName+"</a></dd>");
+                        var dd=$("<dd><a href='" + contextPath + "/" + childArry[y].permissionUrl+"'>"+childArry[y].permissionName+"</a></dd>");
                         //判断选中状态
                         if(pathUri.indexOf(childArry[y].permissionUrl) > 0){
                             li.addClass("layui-nav-itemed");

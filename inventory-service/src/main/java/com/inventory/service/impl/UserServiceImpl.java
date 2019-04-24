@@ -1,7 +1,7 @@
 package com.inventory.service.impl;
 
 import com.inventory.dao.UserDao;
-import com.inventory.pojo.User;
+import com.inventory.po.User;
 import com.inventory.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

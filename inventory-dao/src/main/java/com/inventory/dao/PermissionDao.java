@@ -1,6 +1,6 @@
 package com.inventory.dao;
 
-import com.inventory.entity.PermissionVO;
+import com.inventory.vo.PermissionVO;
 import java.util.List;
 import java.util.Map;
 

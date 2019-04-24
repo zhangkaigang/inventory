@@ -1,6 +1,6 @@
 package com.inventory.shiro;
 
-import com.inventory.entity.UserVO;
+import com.inventory.vo.UserVO;
 import org.apache.shiro.authc.AuthenticationToken;
 import org.apache.shiro.subject.Subject;
 import org.apache.shiro.web.filter.authc.FormAuthenticationFilter;
