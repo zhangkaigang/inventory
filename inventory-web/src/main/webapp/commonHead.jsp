@@ -12,7 +12,7 @@
 
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery-2.1.1.min.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/layui/layui.js"></script>
-<script type="text/javascript" src="${pageContext.request.contextPath}/js/common.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/js/business/common.js"></script>
 <script type="text/javascript">
     var contextPath = '<%=request.getContextPath()%>';
     // 定义

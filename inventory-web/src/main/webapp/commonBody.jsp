@@ -28,7 +28,7 @@
         </div>
     </div>
 </div>
-<script type="text/javascript" src="${pageContext.request.contextPath}/js/head.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/js/business/head.js"></script>
 <!-- 移动导航 -->
 <div class="site-tree-mobile layui-hide">
     <i class="layui-icon">&#xe602;</i>

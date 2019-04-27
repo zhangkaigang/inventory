@@ -1,5 +1,6 @@
 package com.inventory.dao;
 
+import com.inventory.po.Permission;
 import com.inventory.vo.PermissionVO;
 import java.util.List;
 import java.util.Map;
@@ -17,6 +18,8 @@ public interface PermissionDao {
      * @param map
      * @return
      */
-    List<PermissionVO> findPermsByUserId(Map<String, Object> map);
+    List<Permission> queryPermissionByUserId(Map<String, Object> map);
+
+    List<Permission> queryPermissionList();
 
 }

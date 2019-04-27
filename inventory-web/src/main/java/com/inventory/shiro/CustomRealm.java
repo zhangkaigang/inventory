@@ -1,9 +1,9 @@
 package com.inventory.shiro;
 
+import com.inventory.service.PermissionService;
 import com.inventory.vo.PermissionVO;
 import com.inventory.vo.UserVO;
 import com.inventory.po.User;
-import com.inventory.service.AuthService;
 import com.inventory.service.UserService;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.*;
@@ -34,7 +34,7 @@ public class CustomRealm extends AuthorizingRealm {
     private UserService userService;
 
     @Autowired
-    private AuthService authService;
+    private PermissionService permissionService;
 
     /**
      * 设置realm的名称
@@ -77,7 +77,7 @@ public class CustomRealm extends AuthorizingRealm {
             Map<String, Object> map = new HashMap();
             map.put("ITEM_TYPE", "0");
             map.put("USER_ID", user.getId());
-            menuList = authService.findPermsByUserId(map);
+            menuList = permissionService.queryPermissionByUserId(map);
         }catch (Exception e){
             logger.error(e.getMessage(), e);
         }
@@ -107,7 +107,7 @@ public class CustomRealm extends AuthorizingRealm {
             Map<String, Object> map = new HashMap();
             map.put("ITEM_TYPE", "1");
             map.put("USER_ID", userVO.getId());
-            permissionList = authService.findPermsByUserId(map);
+            permissionList = permissionService.queryPermissionByUserId(map);
         }catch (Exception e){
             logger.error(e.getMessage(), e);
         }

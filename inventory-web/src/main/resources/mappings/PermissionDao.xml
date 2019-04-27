@@ -6,19 +6,31 @@
         <result column="permission_name"  property="permissionName"/>
         <result column="parent_id"  property="parentId"/>
         <result column="item_type"  property="itemType"/>
+        <result column="description"  property="description"/>
+        <result column="permission_code"  property="permissionCode"/>
+        <result column="permission_url"  property="permissionUrl"/>
+        <result column="sort" property="sort"/>
+
+        <result column="create_op"  property="createOp"/>
+        <result column="create_date"  property="createDate" jdbcType="TIMESTAMP"/>
+        <result column="modify_op"  property="modifyOp"/>
+        <result column="modify_date"  property="modifyDate" jdbcType="TIMESTAMP"/>
+        <result column="delete_state"  property="deleteState"/>
+        <result column="delete_date"  property="deleteDate" jdbcType="TIMESTAMP"/>
     </resultMap>
     <sql id="Base_Column_List">
-        id, permission_name, parent_id, item_type
+        id, permission_name, parent_id, item_type, description, permission_code, permission_url, sort,
+        create_op, create_date, modify_op, modify_date, delete_state, delete_date
     </sql>
 
-    <select id="findPermsByUserId" parameterType="map" resultType="com.inventory.vo.PermissionVO">
+    <select id="queryPermissionByUserId" parameterType="map" resultMap="BaseResultMap">
         select
         p.id,
-        p.permission_name permissionName,
-        p.parent_id parentId,
-        p.item_type itemType,
-        p.permission_code permissionCode,
-        p.permission_url permissionUrl
+        p.permission_name,
+        p.parent_id,
+        p.item_type,
+        p.permission_code,
+        p.permission_url
         from permission p
         LEFT JOIN role_permission rp ON rp.permission_id=p.id
         LEFT JOIN role r ON r.id=rp.role_id and r.delete_state = '0'
@@ -26,6 +38,14 @@
         WHERE ur.user_id=#{USER_ID} and p.item_type = #{ITEM_TYPE} and p.delete_state = '0'
         order by p.sort
     </select>
+
+    <select id="queryPermissionList" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from permission
+        where delete_state='0' order by sort
+    </select>
+
 
 
 </mapper>

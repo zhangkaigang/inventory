@@ -8,15 +8,21 @@ import java.util.Map;
 /**
  * @Description:TODO
  * @Author:zhang.kaigang
- * @Date:2019/4/18 14:56
+ * @Date:2019/4/26 13:51
  * @Version:1.0
  */
-public interface AuthService {
+public interface PermissionService {
 
     /**
      * 根据用户id获取权限数据
      * @param map
      * @return
      */
-    List<PermissionVO> findPermsByUserId(Map<String, Object> map);
+    List<PermissionVO> queryPermissionByUserId(Map<String, Object> map);
+
+    /**
+     * 查询权限列表
+     * @return
+     */
+    List<PermissionVO> queryPermissionList();
 }

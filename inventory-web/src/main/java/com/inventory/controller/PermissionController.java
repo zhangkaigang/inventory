@@ -1,8 +1,8 @@
 package com.inventory.controller;
 
+import com.inventory.service.PermissionService;
 import com.inventory.util.CommonConstants;
-import com.inventory.vo.RoleVO;
-import com.inventory.service.RoleService;
+import com.inventory.vo.PermissionVO;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,39 +14,39 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 /**
- * @Description:角色控制器
+ * @Description:TODO
  * @Author:zhang.kaigang
- * @Date:2019/4/23 19:10
+ * @Date:2019/4/26 13:46
  * @Version:1.0
  */
 @Controller
-@RequestMapping("/role")
-public class RoleController extends BaseController{
+@RequestMapping("/permission")
+public class PermissionController extends BaseController{
 
     @Autowired
-    private RoleService roleService;
+    private PermissionService permissionService;
 
     /**
-     * 跳转角色列表页面
+     * 跳转权限列表页面
      * @return
      */
-    @RequestMapping(value = "/roleList")
+    @RequestMapping(value = "/permissionList")
     public String roleList(){
-        return "/role/roleList";
+        return "/permission/permissionList";
     }
 
     /**
-     * 查询所有角色列表，不分页
+     * 查询所有权限列表，不分页
      * @param request
      * @param response
      */
-    @RequestMapping(value = "/queryRoleList")
-    public void queryRoleList(HttpServletRequest request, HttpServletResponse response){
+    @RequestMapping(value = "/queryPermissionList")
+    public void queryPermissionList(HttpServletRequest request, HttpServletResponse response){
         try{
-            List<RoleVO> roleVOList = roleService.queryRoleList();
+            List<PermissionVO> permissionVOList = permissionService.queryPermissionList();
             JSONObject resultArray = new JSONObject();
             resultArray.put(CommonConstants.LAYUI_CODE, 0);
-            resultArray.put(CommonConstants.LAYUI_DATA, JSONArray.fromObject(roleVOList));
+            resultArray.put(CommonConstants.LAYUI_DATA, JSONArray.fromObject(permissionVOList));
             writeResponse(resultArray, response);
         }catch (Exception e){
             logger.error(e.getMessage(), e);
@@ -54,11 +54,11 @@ public class RoleController extends BaseController{
     }
 
     /**
-     * 跳转到角色新增页面
+     * 跳转到权限新增页面
      * @return
      */
-    @RequestMapping(value = "/addRolePage")
+    @RequestMapping(value = "/addPermissionPage")
     public String addRolePage(){
-        return "/role/addRole";
+        return "/permission/addPermission";
     }
 }

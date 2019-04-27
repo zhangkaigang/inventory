@@ -1,13 +1,13 @@
 <%--
   Created by IntelliJ IDEA.
   User: zkaigang
-  Date: 2019/4/23
-  Time: 19:19
+  Date: 2019/4/25
+  Time: 22:31
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ include file="/tag.jsp"%>
-<!DOCTYPE html>
+<html>
 <head>
     <%@include file="/commonHead.jsp"%>
 </head>
@@ -17,18 +17,14 @@
         <%@include file="/commonBody.jsp"%>
         <!--body主体-->
         <div class="layui-body" style="margin: 1%">
-            <div class="layui-btn" data-type="btnAdd" id="btnAdd">开通角色</div>
+            <div class="layui-btn" data-type="btnAdd" id="btnAdd">开通权限</div>
             <div class="grid">
-                <table class="layui-table" id="viewGrid"></table>
+                <table class="layui-table" id="viewGrid" lay-filter="viewGrid"></table>
             </div>
         </div>
         <!--body尾-->
         <%@include file="/commonBottom.jsp"%>
     </div>
-<script type="text/javascript" src="${pageContext.request.contextPath}/js/business/role/roleList.js"></script>
-<script type="text/html" id="barDemo">
-    <a class="layui-btn layui-btn-xs" lay-event="btnEdit">编辑</a>
-    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="btnDelete">删除</a>
-</script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/js/business/permission/permissionList.js"></script>
 </body>
 </html>
