@@ -15,10 +15,8 @@
     <div class="layui-layout layui-layout-admin">
         <!--body主体-->
         <div class="layer_self_wrap" style="margin: 1%">
-            <form id="permForm" class="layui-form layui-form-pane" method="post" action="" style="margin-top: 20px;">
-                <input id="type" type="hidden" name="type"/>
-                <input id="pid" type="hidden" name="pid"/>
-                <input id="id" type="hidden" name="id"/>
+            <form id="permissionForm" class="layui-form layui-form-pane" method="post" action="" style="margin-top: 20px;">
+                <input type="hidden" name="parentId" id="parentId" value="">
                 <div class="layui-form-item">
                     <label class="layui-form-label">权限名称</label>
                     <div class="layui-input-inline">
@@ -61,12 +59,13 @@
                 </div>
                 <div class="layui-form-item">
                     <div class="layui-input-block" style="margin-left: 10px;">
-                        <button class="layui-btn"  lay-submit="" lay-filter="permSubmit">提交</button>
-                        <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+                        <button class="layui-btn"  lay-submit="" data-type="btnSave" lay-filter="btnSave">提交</button>
+                        <div class="layui-btn layui-btn-primary" data-type="btnCancel">取消</div>
                     </div>
                 </div>
             </form>
         </div>
     </div>
+<script type="text/javascript" src="${pageContext.request.contextPath}/js/business/permission/addPermission.js"></script>
 </body>
 </html>

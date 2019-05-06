@@ -9,7 +9,6 @@ var cols = [[
             var editBtn = '<a class="layui-btn layui-btn-xs" lay-event="btnEdit">编辑</a>';
             var addChildBtn = '<a class="layui-btn layui-btn-xs" lay-event="btnAddChild">添加子节点</a>';
             var deleteBtn = '<a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="btnDelete">删除</a>';
-
         return editBtn + addChildBtn + deleteBtn;
         }
     }
@@ -43,16 +42,16 @@ layui.config({
             return res;
         }
         ,onClickRow:function (index, o) {
-            console.log(index,o,"单击！");
+            // console.log(index,o,"单击！");
         }
         ,onDblClickRow:function (index, o) {
-            console.log(index,o,"双击");
+            // console.log(index,o,"双击");
         }
         ,onCheck:function (obj,checked,isAll) {
-            console.log(obj,checked,isAll,"复选");
+            // console.log(obj,checked,isAll,"复选");
         }
         ,onRadio:function (obj) {
-            console.log(obj,"单选");
+            // console.log(obj,"单选");
         }
     });
 
@@ -67,6 +66,9 @@ layui.config({
         // 开通权限(新增)
         btnAdd : function(){
             var url = contextPath + "/permission/addPermissionPage.action"
+            param = {
+                parentId : 0
+            };
             // 页面层
             layer.open({
                 type: 2,
@@ -76,4 +78,24 @@ layui.config({
             });
         }
     };
+
+    // 监听行工具事件
+    treeGrid.on('tool(viewGrid)', function(obj){
+        var selectData = obj.data;
+        if(obj.event === 'btnAddChild'){
+            console.log(selectData);
+            // 添加子节点权限
+            var url = contextPath + "/permission/addPermissionPage.action"
+            param = {
+                parentId : selectData.id
+            };
+            // 页面层
+            layer.open({
+                type: 2,
+                title : '开通权限',
+                area: ['500px', '600px'],
+                content: url
+            });
+        }
+    });
 });

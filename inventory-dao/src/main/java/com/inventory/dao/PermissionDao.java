@@ -20,6 +20,17 @@ public interface PermissionDao {
      */
     List<Permission> queryPermissionByUserId(Map<String, Object> map);
 
+    /**
+     * 查询权限列表
+     * @return
+     */
     List<Permission> queryPermissionList();
+
+    /**
+     * 新增权限
+     * @param permission
+     * @return
+     */
+    int addPermission(Permission permission);
 
 }

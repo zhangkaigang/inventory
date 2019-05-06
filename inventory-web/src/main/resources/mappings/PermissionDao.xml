@@ -46,6 +46,28 @@
         where delete_state='0' order by sort
     </select>
 
-
+    <insert id="addPermission" parameterType="com.inventory.po.Permission">
+        insert into permission(
+              permission_name,
+              parent_id,
+              item_type,
+              description,
+              permission_code,
+              permission_url,
+              sort,
+              create_op,
+              create_date
+          ) values(
+             #{permissionName, jdbcType=VARCHAR},
+             #{parentId, jdbcType=INTEGER},
+             #{itemType, jdbcType=VARCHAR},
+             #{description, jdbcType=VARCHAR},
+             #{permissionCode, jdbcType=VARCHAR},
+             #{permissionUrl, jdbcType=VARCHAR},
+             #{sort, jdbcType=INTEGER},
+             #{createOp, jdbcType=INTEGER},
+             CURRENT_TIMESTAMP
+          )
+    </insert>
 
 </mapper>

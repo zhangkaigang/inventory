@@ -25,4 +25,11 @@ public interface PermissionService {
      * @return
      */
     List<PermissionVO> queryPermissionList();
+
+    /**
+     * 新增权限
+     * @param permissionVO
+     * @return
+     */
+    int addPermission(PermissionVO permissionVO);
 }

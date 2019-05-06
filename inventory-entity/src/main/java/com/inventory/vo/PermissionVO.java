@@ -21,6 +21,8 @@ public class PermissionVO implements java.io.Serializable{
 
     private Integer sort;
 
+    private String description;
+
     public Integer getId() {
         return id;
     }
@@ -75,5 +77,13 @@ public class PermissionVO implements java.io.Serializable{
 
     public void setSort(Integer sort) {
         this.sort = sort;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 }

@@ -46,6 +46,7 @@
             </div>
         </form>
     </div>
+</div>
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/business/role/addRole.js"></script>
 </body>
 </html>

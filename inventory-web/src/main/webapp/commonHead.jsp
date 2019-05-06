@@ -20,17 +20,6 @@
     layui.use(['layer'], function(){
         layer = layui.layer;
     });
-    // 封装公共方法
-    var commonFuns = {
-        //重新渲染表单
-        renderForm: function () {
-            layui.use('form', function () {
-                //高版本建议把括号去掉，有的低版本，需要加()
-                var form = layui.form;
-                form.render();
-            });
-        }
-    }
 </script>
 
 

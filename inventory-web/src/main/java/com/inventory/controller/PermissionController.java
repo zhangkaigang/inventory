@@ -2,12 +2,14 @@ package com.inventory.controller;
 
 import com.inventory.service.PermissionService;
 import com.inventory.util.CommonConstants;
+import com.inventory.util.ProcessResult;
 import com.inventory.vo.PermissionVO;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -60,5 +62,25 @@ public class PermissionController extends BaseController{
     @RequestMapping(value = "/addPermissionPage")
     public String addRolePage(){
         return "/permission/addPermission";
+    }
+
+    /**
+     * 添加权限
+     */
+    @RequestMapping(value = "/addPermission")
+    @ResponseBody
+    public Object addPermission(PermissionVO permissionVO){
+        try{
+            int i = permissionService.addPermission(permissionVO);
+            if(i > 0){
+                return proccessResult(CommonConstants.SUCCESS);
+            }else {
+                return proccessResult(CommonConstants.ERROR);
+            }
+
+        }catch (Exception e){
+            logger.error(e.getMessage(), e);
+            return proccessResult(CommonConstants.ERROR);
+        }
     }
 }

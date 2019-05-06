@@ -17,7 +17,7 @@
         <%@include file="/commonBody.jsp"%>
         <!--body主体-->
         <div class="layui-body" style="margin: 1%">
-            <div class="layui-btn" data-type="btnAdd" id="btnAdd">开通权限</div>
+            <button class="layui-btn" data-type="btnAdd" id="btnAdd">开通权限</button>
             <div class="grid">
                 <table class="layui-table" id="viewGrid" lay-filter="viewGrid"></table>
             </div>
@@ -25,6 +25,6 @@
         <!--body尾-->
         <%@include file="/commonBottom.jsp"%>
     </div>
-<script type="text/javascript" src="${pageContext.request.contextPath}/js/business/permission/permissionList.js"></script>
+    <script type="text/javascript" src="${pageContext.request.contextPath}/js/business/permission/permissionList.js"></script>
 </body>
 </html>

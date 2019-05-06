@@ -36,4 +36,10 @@ public class PermissionServiceImpl implements PermissionService{
         List<PermissionVO> permissionVOList = PoJoConverter.mapList(permissionList, PermissionVO.class);
         return permissionVOList;
     }
+
+    @Override
+    public int addPermission(PermissionVO permissionVO) {
+        Permission permission = PoJoConverter.map(permissionVO, Permission.class);
+        return permissionDao.addPermission(permission);
+    }
 }
