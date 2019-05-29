@@ -17,9 +17,7 @@ layui.use(['form'], function(){
     var active = {
         // 取消
         btnCancel : function(){
-            // 获取当前弹出层的等级
-            var index = parent.layer.getFrameIndex(window.name);
-            parent.layer.close(index);
+            commonFuns.btnCancel();
         },
         // 保存权限
         btnSave : function(){
@@ -27,18 +25,7 @@ layui.use(['form'], function(){
             form.on('submit(btnSave)', function(data){
                 var formVal = data.field;
                 var returnData = commonFuns.$Ajax(contextPath+"/permission/addPermission.action", formVal);
-                if(returnData.result == "SUCCESS"){
-                    layer.alert("开通成功！", function(){
-                        // 刷新父页面
-                        window.parent.location.reload();
-                        var index = parent.layer.getFrameIndex(window.name);
-                        // 关闭弹出层
-                        parent.layer.close(index);
-                    });
-                }else{
-                    layer.alert("开通失败");
-                    return false;
-                }
+                commonFuns.dealChildPageResult(returnData);
                 // layui的表单提交一定需要加这个false
                 return false;
             });

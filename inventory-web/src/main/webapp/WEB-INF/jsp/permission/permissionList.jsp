@@ -7,6 +7,14 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ include file="/tag.jsp"%>
+<script type="text/javascript">
+    function getPermissionBtn(){
+        var editBtn = '<shiro:hasPermission name="permission:edit"><a class="layui-btn layui-btn-xs" lay-event="btnEdit">编辑</a></shiro:hasPermission> ';
+        var addChildBtn = '<shiro:hasPermission name="permission:add"><a class="layui-btn layui-btn-xs" lay-event="btnAddChild">添加子节点</a></shiro:hasPermission> ';
+        var deleteBtn = '<shiro:hasPermission name="permission:delete"><a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="btnDelete">删除</a></shiro:hasPermission> ';
+        return editBtn + addChildBtn + deleteBtn;
+    }
+</script>
 <html>
 <head>
     <%@include file="/commonHead.jsp"%>
@@ -17,7 +25,9 @@
         <%@include file="/commonBody.jsp"%>
         <!--body主体-->
         <div class="layui-body" style="margin: 1%">
-            <button class="layui-btn" data-type="btnAdd" id="btnAdd">开通权限</button>
+            <shiro:hasPermission name="permission:add">
+                <button class="layui-btn" data-type="btnAdd" id="btnAdd">开通权限</button>
+            </shiro:hasPermission>
             <div class="grid">
                 <table class="layui-table" id="viewGrid" lay-filter="viewGrid"></table>
             </div>

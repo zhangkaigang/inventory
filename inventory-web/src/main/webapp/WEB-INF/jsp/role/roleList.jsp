@@ -17,9 +17,11 @@
         <%@include file="/commonBody.jsp"%>
         <!--body主体-->
         <div class="layui-body" style="margin: 1%">
-            <div class="layui-btn" data-type="btnAdd" id="btnAdd">开通角色</div>
+            <shiro:hasPermission name="role:add">
+                <div class="layui-btn" data-type="btnAdd" id="btnAdd">开通角色</div>
+            </shiro:hasPermission>
             <div class="grid">
-                <table class="layui-table" id="viewGrid"></table>
+                <table class="layui-table" id="viewGrid" lay-filter="viewGrid"></table>
             </div>
         </div>
         <!--body尾-->
@@ -27,8 +29,12 @@
     </div>
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/business/role/roleList.js"></script>
 <script type="text/html" id="barDemo">
+<shiro:hasPermission name="role:edit">
     <a class="layui-btn layui-btn-xs" lay-event="btnEdit">编辑</a>
+</shiro:hasPermission>
+<shiro:hasPermission name="role:delete">
     <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="btnDelete">删除</a>
+</shiro:hasPermission>
 </script>
 </body>
 </html>

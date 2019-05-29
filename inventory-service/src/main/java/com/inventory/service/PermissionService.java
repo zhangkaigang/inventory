@@ -32,4 +32,17 @@ public interface PermissionService {
      * @return
      */
     int addPermission(PermissionVO permissionVO);
+
+    /**
+     * 编辑权限
+     * @param permissionVO
+     * @return
+     */
+    int editPermission(PermissionVO permissionVO);
+
+    /**
+     * 删除权限
+     * @param id
+     */
+    int deletePermission(int id);
 }

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.inventory.dao.UserRoleDao">
+    <resultMap id="BaseResultMap" type="com.inventory.po.UserRole">
+        <result column="user_id"  property="userId"/>
+        <result column="role_id"  property="roleId"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        user_id, role_id
+    </sql>
+
+    <insert id="addUserRole" parameterType="com.inventory.po.UserRole" >
+        insert into user_role(
+          user_id,
+          role_id
+        ) values (
+          #{userId, jdbcType=INTEGER},
+          #{roleId, jdbcType=INTEGER}
+        )
+    </insert>
+</mapper>

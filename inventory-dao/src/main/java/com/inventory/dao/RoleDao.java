@@ -18,4 +18,25 @@ public interface RoleDao {
      */
     List<Role> queryRoleList();
 
+    /**
+     * 新增角色
+     * @param role
+     * @return
+     */
+    int addRole(Role role);
+
+    /**
+     * 编辑角色
+     * @param role
+     * @return
+     */
+    int editRole(Role role);
+
+    /**
+     * 删除角色
+     * @param id
+     * @return
+     */
+    int deleteRole(int id);
+
 }

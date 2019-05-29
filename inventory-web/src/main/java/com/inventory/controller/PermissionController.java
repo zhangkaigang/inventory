@@ -6,9 +6,11 @@ import com.inventory.util.ProcessResult;
 import com.inventory.vo.PermissionVO;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
@@ -56,11 +58,12 @@ public class PermissionController extends BaseController{
     }
 
     /**
-     * 跳转到权限新增页面
+     * 跳转到权限新增页面，需要权限新增权限
      * @return
      */
     @RequestMapping(value = "/addPermissionPage")
-    public String addRolePage(){
+    @RequiresPermissions("permission:add")
+    public String addPermissionPage(){
         return "/permission/addPermission";
     }
 
@@ -73,14 +76,67 @@ public class PermissionController extends BaseController{
         try{
             int i = permissionService.addPermission(permissionVO);
             if(i > 0){
-                return proccessResult(CommonConstants.SUCCESS);
+                return processResult(CommonConstants.SUCCESS);
             }else {
-                return proccessResult(CommonConstants.ERROR);
+                return processResult(CommonConstants.ERROR);
             }
 
         }catch (Exception e){
             logger.error(e.getMessage(), e);
-            return proccessResult(CommonConstants.ERROR);
+            return processResult(CommonConstants.ERROR);
+        }
+    }
+
+    /**
+     * 跳转到权限编辑页面，需要权限编辑权限
+     * @return
+     */
+    @RequestMapping(value = "/editPermissionPage")
+    @RequiresPermissions("permission:edit")
+    public String editPermissionPage(){
+        return "/permission/editPermission";
+    }
+
+    /**
+     * 权限编辑
+     * @param permissionVO
+     * @return
+     */
+    @RequestMapping(value = "/editPermission")
+    @ResponseBody
+    public Object editPermission(PermissionVO permissionVO){
+        try{
+            int i = permissionService.editPermission(permissionVO);
+            if(i > 0){
+                return processResult(CommonConstants.SUCCESS);
+            }else {
+                return processResult(CommonConstants.ERROR);
+            }
+        }catch (Exception e){
+            logger.error(e.getMessage(), e);
+            return processResult(CommonConstants.ERROR);
+        }
+    }
+
+    /**
+     * 删除权限，需要权限删除权限
+     * @param id
+     * @return
+     */
+    @RequestMapping(value = "/deletePermission")
+    @ResponseBody
+    @RequiresPermissions("permission:delete")
+    public Object deletePermission(@RequestParam("id") int id) {
+        try {
+            int i = permissionService.deletePermission(id);
+            if (i > 0) {
+                return processResult(CommonConstants.SUCCESS);
+            } else {
+                return processResult(CommonConstants.ERROR);
+            }
+        } catch (Exception e) {
+            logger.error(e.getMessage(), e);
+            return processResult(CommonConstants.ERROR);
         }
     }
 }

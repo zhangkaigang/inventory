@@ -1,15 +1,20 @@
 var cols = [[
     {field:'permissionName', title: '权限名称'},
-    {field:'itemType', title: '权限分类'},
+    {field:'itemType', title: '权限分类', templet: function (d) {
+            if(d.itemType == '0'){
+                return "菜单";
+            }else if(d.itemType == '1'){
+                return "功能";
+            }else{
+                return "";
+            }
+        }
+    },
     {field:'permissionUrl', title: '权限路径'},
     {field:'permissionCode', title: '权限编码'},
     {field:'sort', title: '顺序'},
-    {width:180,title: '操作', align:'center', templet: function(d){
-            var html='';
-            var editBtn = '<a class="layui-btn layui-btn-xs" lay-event="btnEdit">编辑</a>';
-            var addChildBtn = '<a class="layui-btn layui-btn-xs" lay-event="btnAddChild">添加子节点</a>';
-            var deleteBtn = '<a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="btnDelete">删除</a>';
-        return editBtn + addChildBtn + deleteBtn;
+    {width:190,title: '操作', align:'center', templet: function(d){
+            return getPermissionBtn();
         }
     }
 ]];
@@ -82,8 +87,21 @@ layui.config({
     // 监听行工具事件
     treeGrid.on('tool(viewGrid)', function(obj){
         var selectData = obj.data;
-        if(obj.event === 'btnAddChild'){
-            console.log(selectData);
+        if(obj.event === 'btnEdit'){
+            // 编辑权限
+            var url = contextPath + "/permission/editPermissionPage.action";
+            param = {
+                selectData : selectData
+            };
+            // 页面层
+            layer.open({
+                type: 2,
+                title : '编辑权限',
+                area: ['500px', '600px'],
+                content: url
+            });
+
+        }else if(obj.event === 'btnAddChild'){
             // 添加子节点权限
             var url = contextPath + "/permission/addPermissionPage.action"
             param = {
@@ -96,6 +114,15 @@ layui.config({
                 area: ['500px', '600px'],
                 content: url
             });
+        }else if(obj.event === 'btnDelete'){
+            // 删除权限
+            layer.confirm('是否删除该权限以及所有子权限!', {
+                    btn: ['确定', '取消']
+                }, function (index, layero) {
+                    var returnData = commonFuns.$Ajax(contextPath+"/permission/deletePermission.action", {"id" : selectData.id});
+                    commonFuns.dealResult(returnData);
+                }
+            );
         }
     });
 });

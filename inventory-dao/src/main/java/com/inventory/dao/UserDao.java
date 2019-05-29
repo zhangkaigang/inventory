@@ -2,6 +2,8 @@ package com.inventory.dao;
 
 import com.inventory.po.User;
 
+import java.util.List;
+
 /**
  * @Description:用户信息DAO类
  * @Author:zhang.kaigang
@@ -16,4 +18,17 @@ public interface UserDao {
      * @return
      */
     User findUserByLoginName(String loginName);
+
+    /**
+     * 查询用户列表
+     * @return
+     */
+    List<User> queryUserList();
+
+    /**
+     * 新增用户
+     * @param user
+     * @return
+     */
+    int addUser(User user);
 }

@@ -42,4 +42,16 @@ public class PermissionServiceImpl implements PermissionService{
         Permission permission = PoJoConverter.map(permissionVO, Permission.class);
         return permissionDao.addPermission(permission);
     }
+
+    @Override
+    public int editPermission(PermissionVO permissionVO) {
+        Permission permission = PoJoConverter.map(permissionVO, Permission.class);
+        return permissionDao.editPermission(permission);
+    }
+
+    @Override
+    public int deletePermission(int id) {
+        // 子节点和本身都需要删除
+        return permissionDao.deletePermission(id);
+    }
 }

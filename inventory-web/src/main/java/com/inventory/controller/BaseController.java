@@ -24,7 +24,7 @@ public abstract class BaseController {
      * @param result
      * @return
      */
-    protected Object proccessResult(String result){
+    protected Object processResult(String result){
         ProcessResult processResult = new ProcessResult(result);
         return processResult;
     }
@@ -36,7 +36,7 @@ public abstract class BaseController {
      * @param message
      * @return
      */
-    protected Object proccessResult(String result, String message){
+    protected Object processResult(String result, String message){
         ProcessResult processResult = new ProcessResult(result, message);
         return processResult;
     }

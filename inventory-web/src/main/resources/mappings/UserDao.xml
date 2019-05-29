@@ -28,5 +28,29 @@
         login_name=#{loginName} and delete_state = '0'
     </select>
 
+    <select id="queryUserList" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from user
+        WHERE delete_state = '0'
+    </select>
+
+    <insert id="addUser" useGeneratedKeys="true" keyProperty="id" parameterType="com.inventory.po.User">
+        insert into user(
+            id,
+            login_name,
+            password,
+            real_name,
+            create_op,
+            create_date
+        )values (
+          #{id, jdbcType=INTEGER},
+          #{loginName, jdbcType=VARCHAR},
+          #{password, jdbcType=VARCHAR},
+          #{realName, jdbcType=VARCHAR},
+          #{createOp, jdbcType=INTEGER},
+          CURRENT_TIMESTAMP
+        )
+    </insert>
 
 </mapper>

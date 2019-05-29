@@ -1,17 +1,26 @@
 package com.inventory.controller;
 
+import com.inventory.po.RolePermission;
+import com.inventory.service.PermissionService;
+import com.inventory.shiro.CustomRealm;
 import com.inventory.util.CommonConstants;
+import com.inventory.vo.PermissionVO;
 import com.inventory.vo.RoleVO;
 import com.inventory.service.RoleService;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
+import org.apache.commons.lang3.StringUtils;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * @Description:角色控制器
@@ -25,6 +34,12 @@ public class RoleController extends BaseController{
 
     @Autowired
     private RoleService roleService;
+
+    @Autowired
+    private PermissionService permissionService;
+
+    @Autowired
+    private CustomRealm customRealm;
 
     /**
      * 跳转角色列表页面
@@ -58,7 +73,119 @@ public class RoleController extends BaseController{
      * @return
      */
     @RequestMapping(value = "/addRolePage")
+    @RequiresPermissions("role:add")
     public String addRolePage(){
         return "/role/addRole";
+    }
+
+    /**
+     * 角色新增
+     * @param roleVO
+     * @return
+     */
+    @RequestMapping(value = "/addRole")
+    @ResponseBody
+    public Object addRole(RoleVO roleVO){
+        try{
+            String permissionIds = roleVO.getPermissionIds();
+            if(StringUtils.isEmpty(permissionIds)){
+                return processResult(CommonConstants.ERROR, "未授权，请您给该角色授权");
+            }
+            if(null == roleVO){
+                return processResult(CommonConstants.ERROR, "请您填写完整的角色数据");
+            }
+            roleService.addRole(roleVO, permissionIds);
+            return processResult(CommonConstants.SUCCESS);
+        }catch (Exception e){
+            logger.error(e.getMessage(), e);
+            return processResult(CommonConstants.ERROR);
+        }
+    }
+
+    /**
+     * 跳转到角色编辑页面
+     * @return
+     */
+    @RequestMapping(value = "/editRolePage")
+    @RequiresPermissions("role:edit")
+    public String editRolePage(){
+        return "/role/editRole";
+    }
+
+    /**
+     * 角色编辑
+     * @param roleVO
+     * @return
+     */
+    @RequestMapping(value = "/editRole")
+    @ResponseBody
+    public Object editRole(RoleVO roleVO){
+        try{
+            String permissionIds = roleVO.getPermissionIds();
+            if(StringUtils.isEmpty(permissionIds)){
+                return processResult(CommonConstants.ERROR, "未授权，请您给该角色授权");
+            }
+            if(null == roleVO){
+                return processResult(CommonConstants.ERROR, "请您填写完整的角色数据");
+            }
+            roleService.editRole(roleVO, permissionIds);
+            // 修改完角色的权限清除缓存
+            customRealm.clearCached();
+            return processResult(CommonConstants.SUCCESS);
+        }catch (Exception e){
+            logger.error(e.getMessage(), e);
+            return processResult(CommonConstants.ERROR);
+        }
+    }
+
+    /**
+     * 根据角色ID查询权限ID集合
+     * @return
+     */
+    @RequestMapping(value = "/queryPermissionsByRoleId")
+    @ResponseBody
+    public Object queryPermissionsByRoleId(HttpServletRequest request, HttpServletResponse response){
+        try{
+            String roleId = request.getParameter("roleId");
+            // 角色下的权限
+            List<RolePermission> permissionList = roleService.queryPermissionsByRoleId(Integer.parseInt(roleId));
+            // 全部权限
+            List<PermissionVO> allPermissionList = permissionService.queryPermissionList();
+            for (RolePermission rolePermission : permissionList) {
+                // 设置角色下的权限checked状态为：true
+                for (PermissionVO permissionVO : allPermissionList) {
+                    if(Objects.equals(rolePermission.getPermissionId(), permissionVO.getId())){
+                        permissionVO.setChecked(true);
+                    }
+                }
+            }
+            return processResult(CommonConstants.SUCCESS, "", allPermissionList);
+        }catch (Exception e){
+            logger.error(e.getMessage(), e);
+            return processResult(CommonConstants.ERROR);
+        }
+
+    }
+
+    /**
+     * 删除角色
+     * @param id
+     * @return
+     */
+    @RequestMapping(value = "/deleteRole")
+    @ResponseBody
+    @RequiresPermissions("role:delete")
+    public Object deleteRole(@RequestParam("id") int id){
+        try {
+            int i = roleService.deleteRole(id);
+            if (i > 0) {
+                return processResult(CommonConstants.SUCCESS);
+            } else {
+                return processResult(CommonConstants.ERROR);
+            }
+        }catch (Exception e){
+            logger.error(e.getMessage(), e);
+            return processResult(CommonConstants.ERROR);
+        }
     }
 }

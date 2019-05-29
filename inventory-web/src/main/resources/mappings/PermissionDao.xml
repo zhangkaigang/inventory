@@ -25,12 +25,12 @@
 
     <select id="queryPermissionByUserId" parameterType="map" resultMap="BaseResultMap">
         select
-        p.id,
-        p.permission_name,
-        p.parent_id,
-        p.item_type,
-        p.permission_code,
-        p.permission_url
+            p.id,
+            p.permission_name,
+            p.parent_id,
+            p.item_type,
+            p.permission_code,
+            p.permission_url
         from permission p
         LEFT JOIN role_permission rp ON rp.permission_id=p.id
         LEFT JOIN role r ON r.id=rp.role_id and r.delete_state = '0'
@@ -69,5 +69,24 @@
              CURRENT_TIMESTAMP
           )
     </insert>
+
+    <update id="editPermission"  parameterType="com.inventory.po.Permission">
+        update permission set
+            permission_name = #{permissionName, jdbcType=VARCHAR},
+            item_type = #{itemType, jdbcType=VARCHAR},
+            description = #{description, jdbcType=VARCHAR},
+            permission_code = #{permissionCode, jdbcType=VARCHAR},
+            permission_url = #{permissionUrl, jdbcType=VARCHAR},
+            sort = #{sort, jdbcType=INTEGER},
+            modify_date = CURRENT_TIMESTAMP
+        where id = #{id, jdbcType=INTEGER}
+    </update>
+
+    <update id="deletePermission" parameterType="java.lang.Integer">
+        update permission set
+            delete_state = '1',
+            delete_date = CURRENT_TIMESTAMP
+        where id = #{id, jdbcType=INTEGER} or parent_id = #{id, jdbcType=INTEGER}
+    </update>
 
 </mapper>

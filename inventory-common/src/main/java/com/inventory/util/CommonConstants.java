@@ -21,4 +21,11 @@ public class CommonConstants {
     public static final String LAYUI_COUNT = "count";
     public static final String LAYUI_DATA = "data";
     public static final String LAYUI_QUERY_PARAMS = "queryParams";
+    public static final String LAYUI_LIMIT = "limit";
+    public static final String LAYUI_PAGE = "page";
+
+    // PageHelper相关常量
+    public static final String CURRENT_PAGE = "currentPage";
+    public static final String PAGE_SIZE = "pageSize";
+
 }

@@ -26,4 +26,45 @@
         from role
         where delete_state='0'
     </select>
+
+    <insert id="addRole" useGeneratedKeys="true" keyProperty="id" parameterType="com.inventory.po.Role" >
+        insert into role(
+          id,
+          role_name,
+          role_code,
+          description,
+          create_op,
+          create_date
+        ) values (
+          #{id, jdbcType=INTEGER},
+          #{roleName, jdbcType=VARCHAR},
+          #{roleCode, jdbcType=VARCHAR},
+          #{description, jdbcType=VARCHAR},
+          #{createOp, jdbcType=INTEGER},
+          CURRENT_TIMESTAMP
+        )
+    </insert>
+    
+    <update id="editRole" parameterType="com.inventory.po.Role">
+        update role
+        <set >
+            <if test="roleName != null" >
+                role_name = #{roleName,jdbcType=VARCHAR},
+            </if>
+            <if test="roleCode != null" >
+                role_code = #{roleCode,jdbcType=VARCHAR},
+            </if>
+            <if test="description != null" >
+                description = #{description,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+
+    <update id="deleteRole"  parameterType="java.lang.Integer">
+        update role set
+            delete_state = '1',
+            delete_date = CURRENT_TIMESTAMP
+        where id = #{id, jdbcType=INTEGER}
+    </update>
 </mapper>

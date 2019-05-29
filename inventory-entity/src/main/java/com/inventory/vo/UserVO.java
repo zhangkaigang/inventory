@@ -25,6 +25,11 @@ public class UserVO implements java.io.Serializable{
      */
     private String realName;
 
+    private String password;
+
+    private String isJob;
+    private String createDate;
+
     /**
      * 菜单权限
      */
@@ -34,6 +39,19 @@ public class UserVO implements java.io.Serializable{
      * 功能权限
      */
     private List<PermissionVO> permissionList;
+
+    /**
+     * 角色id，以逗号隔开
+     */
+    private String roleIds;
+
+    public String getRoleIds() {
+        return roleIds;
+    }
+
+    public void setRoleIds(String roleIds) {
+        this.roleIds = roleIds;
+    }
 
     public Integer getId() {
         return id;
@@ -57,6 +75,30 @@ public class UserVO implements java.io.Serializable{
 
     public void setRealName(String realName) {
         this.realName = realName;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getIsJob() {
+        return isJob;
+    }
+
+    public void setIsJob(String isJob) {
+        this.isJob = isJob;
+    }
+
+    public String getCreateDate() {
+        return createDate;
+    }
+
+    public void setCreateDate(String createDate) {
+        this.createDate = createDate;
     }
 
     public List<PermissionVO> getMenuList() {

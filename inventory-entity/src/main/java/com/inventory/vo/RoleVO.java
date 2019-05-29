@@ -13,6 +13,9 @@ public class RoleVO {
     private String description;
     private String createDate;
 
+    // 权限id，以逗号隔开
+    private String permissionIds;
+
     public Integer getId() {
         return id;
     }
@@ -51,5 +54,13 @@ public class RoleVO {
 
     public void setCreateDate(String createDate) {
         this.createDate = createDate;
+    }
+
+    public String getPermissionIds() {
+        return permissionIds;
+    }
+
+    public void setPermissionIds(String permissionIds) {
+        this.permissionIds = permissionIds;
     }
 }

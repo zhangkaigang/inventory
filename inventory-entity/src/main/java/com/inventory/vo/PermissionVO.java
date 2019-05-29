@@ -23,6 +23,8 @@ public class PermissionVO implements java.io.Serializable{
 
     private String description;
 
+    private Boolean checked;
+
     public Integer getId() {
         return id;
     }
@@ -85,5 +87,13 @@ public class PermissionVO implements java.io.Serializable{
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public Boolean getChecked() {
+        return checked;
+    }
+
+    public void setChecked(Boolean checked) {
+        this.checked = checked;
     }
 }

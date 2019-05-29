@@ -33,4 +33,18 @@ public interface PermissionDao {
      */
     int addPermission(Permission permission);
 
+    /**
+     * 编辑权限
+     * @param permission
+     * @return
+     */
+    int editPermission(Permission permission);
+
+    /**
+     * 删除权限
+     * @param id
+     * @return
+     */
+    int deletePermission(int id);
+
 }
