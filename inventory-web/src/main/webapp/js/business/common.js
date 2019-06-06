@@ -32,11 +32,7 @@ var commonFuns = {
                 window.location.reload();
             });
         }else{
-            if(returnData.msg){
-                layer.alert(returnData.msg);
-            }else{
-                layer.alert("操作失败");
-            }
+            layer.alert("操作失败");
             return false;
         }
     },
@@ -51,11 +47,7 @@ var commonFuns = {
                 parent.layer.close(index);
             });
         }else{
-            if(returnData.msg){
-                layer.alert(returnData.msg);
-            }else{
-                layer.alert("操作失败");
-            }
+            layer.alert("操作失败");
             return false;
         }
     },

@@ -53,18 +53,4 @@
         )
     </insert>
 
-    <update id="deleteUser"  parameterType="java.lang.Integer">
-        update user set
-            delete_state = '1',
-            delete_date = CURRENT_TIMESTAMP
-        where id = #{id, jdbcType=INTEGER}
-    </update>
-
-    <update id="editUser" parameterType="com.inventory.po.User">
-        update user set
-            real_name = #{realName,jdbcType=VARCHAR},
-            modify_date = CURRENT_TIMESTAMP
-        where id = #{id, jdbcType=INTEGER} and delete_state = '0'
-    </update>
-
 </mapper>

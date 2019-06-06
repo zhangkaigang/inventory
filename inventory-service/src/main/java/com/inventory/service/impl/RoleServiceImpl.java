@@ -58,11 +58,8 @@ public class RoleServiceImpl implements RoleService{
     }
 
     @Override
-    public void deleteRole(int id) {
-        // 删除角色
-        roleDao.deleteRole(id);
-        // 删除角色权限关联数据
-        rolePermissionDao.deleteRolePermission(id);
+    public int deleteRole(int id) {
+        return roleDao.deleteRole(id);
     }
 
     /**

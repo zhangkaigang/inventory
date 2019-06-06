@@ -33,8 +33,21 @@ layui.use(['form'], function() {
                     return false;
                 }
                 formVal.roleIds = roleIds;
-                var returnData = commonFuns.$Ajax(contextPath + "/user/addUser.action", formVal);
-                commonFuns.dealChildPageResult(returnData);
+                console.log(formVal);
+                var returnData = commonFuns.$Ajax(contextPath+"/user/addUser.action", formVal);
+                /*if(returnData.result == "SUCCESS"){
+                    layer.alert("开通成功！", function(){
+                        // 刷新父页面
+                        window.parent.location.reload();
+                        var index = parent.layer.getFrameIndex(window.name);
+                        // 关闭弹出层
+                        parent.layer.close(index);
+                    });
+                }else{
+                    layer.alert("开通失败");
+                    return false;
+                }*/
+                // layui的表单提交一定需要加这个false
                 return false;
             });
         }

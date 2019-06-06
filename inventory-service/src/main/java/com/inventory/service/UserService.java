@@ -4,7 +4,6 @@ import com.github.pagehelper.PageInfo;
 import com.inventory.po.User;
 import com.inventory.vo.UserVO;
 
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -34,25 +33,5 @@ public interface UserService {
      * @return
      */
     void addUser(UserVO userVO);
-
-    /**
-     * 删除用户
-     * @param id
-     * @return
-     */
-    void deleteUser(int id);
-
-    /**
-     * 获取用户所拥有的的角色id集合
-     * @param userId
-     * @return
-     */
-    List<String> queryRolesByUserId(int userId);
-
-    /**
-     * 修改用户
-     * @param userVO
-     */
-    void editUser(UserVO userVO);
 
 }

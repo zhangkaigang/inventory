@@ -14,17 +14,8 @@
           user_id,
           role_id
         ) values (
-          #{userId, jdbcType = INTEGER},
-          #{roleId, jdbcType = INTEGER}
+          #{userId, jdbcType=INTEGER},
+          #{roleId, jdbcType=INTEGER}
         )
     </insert>
-
-    <delete id="deleteUserRole" parameterType="java.lang.Integer">
-        delete from user_role
-        where user_id = #{userId, jdbcType = INTEGER}
-    </delete>
-
-    <select id="queryRolesByUserId" parameterType="java.lang.Integer" resultType="java.lang.Integer">
-        select role_id from user_role where user_id = #{userId, jdbcType = INTEGER}
-    </select>
 </mapper>

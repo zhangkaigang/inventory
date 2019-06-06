@@ -45,5 +45,5 @@ public interface RoleService {
      * @param id
      * @return
      */
-    void deleteRole(int id);
+    int deleteRole(int id);
 }
