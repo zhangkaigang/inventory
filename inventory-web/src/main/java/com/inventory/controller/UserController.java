@@ -1,6 +1,7 @@
 package com.inventory.controller;
 
 import com.github.pagehelper.PageInfo;
+import com.inventory.po.User;
 import com.inventory.service.RoleService;
 import com.inventory.service.UserService;
 import com.inventory.util.CommonConstants;
@@ -98,8 +99,11 @@ public class UserController extends BaseController{
             if(null == userVO){
                 return processResult(CommonConstants.ERROR, "请您填写完整的用户数据");
             }
+            User user = userService.findUserByLoginName(userVO.getLoginName());
+            if(null != user){
+                return processResult(CommonConstants.ERROR, "该用户名已存在");
+            }
             userService.addUser(userVO);
-
             return processResult(CommonConstants.SUCCESS);
 
         }catch (Exception e){
@@ -108,5 +112,67 @@ public class UserController extends BaseController{
         }
     }
 
+    /**
+     * 删除用户
+     * @param id
+     * @return
+     */
+    @RequestMapping(value = "/deleteUser")
+    @ResponseBody
+    @RequiresPermissions("user:delete")
+    public Object deleteUser(@RequestParam("id") int id){
+        try{
+            userService.deleteUser(id);
+            return processResult(CommonConstants.SUCCESS);
+        }catch (Exception e){
+            logger.error(e.getMessage(), e);
+            return processResult(CommonConstants.ERROR);
+        }
+    }
 
+    /**
+     * 跳转到用户编辑页面
+     * @return
+     */
+    @RequestMapping(value = "/editUserPage")
+    @RequiresPermissions("user:edit")
+    public ModelAndView editUserPage(@RequestParam("id") int userId){
+        ModelAndView modelAndView = new ModelAndView("/user/editUser");
+        try{
+            // 查询所有角色
+            List<RoleVO> roleVOList = roleService.queryRoleList();
+            modelAndView.addObject("roleList", roleVOList);
+            // 查询用户所拥有的角色
+            List<String> existRolesList = userService.queryRolesByUserId(userId);
+            String existRolesStr = StringUtils.join(existRolesList, ",");
+            modelAndView.addObject("existRolesStr", existRolesStr);
+        }catch (Exception e){
+            logger.error(e.getMessage(), e);
+        }
+        return modelAndView;
+    }
+
+    /**
+     * 修改用户
+     * @param userVO
+     * @return
+     */
+    @RequestMapping(value = "/editUser")
+    @ResponseBody
+    public Object editUser(UserVO userVO){
+        try{
+            String roleIds = userVO.getRoleIds();
+            if(StringUtils.isEmpty(roleIds)){
+                return processResult(CommonConstants.ERROR, "未授权，请您给该用户授予角色");
+            }
+            if(null == userVO){
+                return processResult(CommonConstants.ERROR, "请您填写完整的用户数据");
+            }
+            userService.editUser(userVO);
+            return processResult(CommonConstants.SUCCESS);
+        }catch (Exception e){
+            logger.error(e.getMessage(), e);
+            return processResult(CommonConstants.ERROR);
+        }
+    }
 }

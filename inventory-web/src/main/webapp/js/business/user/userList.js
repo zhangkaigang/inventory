@@ -51,4 +51,31 @@ layui.use(['table'], function() {
             });
         }
     };
+
+    // 监听行工具事件
+    table.on('tool(viewGrid)', function(obj){
+        var selectData = obj.data;
+        if(obj.event === 'btnEdit'){
+            var url = contextPath + "/user/editUserPage.action?id=" + selectData.id;
+            param = {
+                selectData: selectData
+            };
+            // 页面层
+            layer.open({
+                type: 2,
+                title : '编辑用户',
+                area: ['500px', '600px'],
+                content: url
+            });
+        }else if(obj.event === 'btnDelete'){
+            // 删除用户
+            layer.confirm('是否删除该用户!', {
+                    btn: ['确定', '取消']
+                }, function (index, layero) {
+                    var returnData = commonFuns.$Ajax(contextPath + "/user/deleteUser.action", {"id" : selectData.id});
+                    commonFuns.dealResult(returnData);
+                }
+            );
+        }
+    });
 });

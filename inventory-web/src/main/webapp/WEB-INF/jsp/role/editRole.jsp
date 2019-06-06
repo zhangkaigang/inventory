@@ -13,7 +13,6 @@
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/js/ztree/css/zTreeStyle/zTreeStyle.css">
     <script type="text/javascript">
         var selectData = parent.param.selectData;
-
     </script>
 </head>
 <body class="layui-layout-body">
