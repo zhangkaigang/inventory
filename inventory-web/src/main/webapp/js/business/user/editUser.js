@@ -1,6 +1,9 @@
 layui.use(['form'], function() {
-    //  Form模块全自动渲染，将原本普通的诸如select、checkbox、radio等元素重置为你所看到的模样
     var form = layui.form;
+    $("#userForm input").each(function(index, element) {
+        $("#"+element.id).val(selectData[element.name]);
+    });
+    commonFuns.renderForm();
 
     // 按钮点击事件
     $('.layui-btn').on('click', function(){
@@ -12,14 +15,12 @@ layui.use(['form'], function() {
     var active = {
         // 取消
         btnCancel: function () {
-            // 获取当前弹出层的等级
-            var index = parent.layer.getFrameIndex(window.name);
-            parent.layer.close(index);
+            commonFuns.btnCancel();
         },
         // 保存用户
-        btnSave : function(){
+        btnSave : function() {
             // 监听表单提交
-            form.on('submit(btnSave)', function(data){
+            form.on('submit(btnSave)', function (data) {
                 var formVal = data.field;
                 // 选中的角色
                 var array = new Array();
@@ -33,7 +34,7 @@ layui.use(['form'], function() {
                     return false;
                 }
                 formVal.roleIds = roleIds;
-                var returnData = commonFuns.$Ajax(contextPath + "/user/addUser.action", formVal);
+                var returnData = commonFuns.$Ajax(contextPath+"/user/editUser.action", formVal);
                 commonFuns.dealChildPageResult(returnData);
                 return false;
             });

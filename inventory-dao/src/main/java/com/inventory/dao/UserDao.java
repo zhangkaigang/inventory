@@ -1,6 +1,7 @@
 package com.inventory.dao;
 
 import com.inventory.po.User;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -31,4 +32,26 @@ public interface UserDao {
      * @return
      */
     int addUser(User user);
+
+    /**
+     * 删除用户
+     * @param id
+     * @return
+     */
+    int deleteUser(int id);
+
+    /**
+     * 修改用户
+     * @param user
+     * @return
+     */
+    int editUser(User user);
+
+    /**
+     * 设置用户在职状态
+     * @param userId
+     * @param isJob
+     * @return
+     */
+    int setJobUser(@Param("id") int userId, @Param("isJob") String isJob);
 }

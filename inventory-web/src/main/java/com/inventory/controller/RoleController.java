@@ -177,12 +177,8 @@ public class RoleController extends BaseController{
     @RequiresPermissions("role:delete")
     public Object deleteRole(@RequestParam("id") int id){
         try {
-            int i = roleService.deleteRole(id);
-            if (i > 0) {
-                return processResult(CommonConstants.SUCCESS);
-            } else {
-                return processResult(CommonConstants.ERROR);
-            }
+            roleService.deleteRole(id);
+            return processResult(CommonConstants.SUCCESS);
         }catch (Exception e){
             logger.error(e.getMessage(), e);
             return processResult(CommonConstants.ERROR);

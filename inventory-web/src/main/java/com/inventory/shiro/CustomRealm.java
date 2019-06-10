@@ -5,12 +5,14 @@ import com.inventory.vo.PermissionVO;
 import com.inventory.vo.UserVO;
 import com.inventory.po.User;
 import com.inventory.service.UserService;
+import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
+import org.mindrot.jbcrypt.BCrypt;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -118,6 +120,7 @@ public class CustomRealm extends AuthorizingRealm {
                 // 将数据库中的权限标签 符放入集合
                 permissions.add(permissionVO.getPermissionCode());
             }
+            userVO.setPermissionList(permissionList);
         }
         // 查到权限数据，返回授权信息(要包括 上边的permissions)
         SimpleAuthorizationInfo simpleAuthorizationInfo = new SimpleAuthorizationInfo();
@@ -125,8 +128,6 @@ public class CustomRealm extends AuthorizingRealm {
         simpleAuthorizationInfo.addStringPermissions(permissions);
         return simpleAuthorizationInfo;
     }
-
-
 
     /**
      * 清除缓存

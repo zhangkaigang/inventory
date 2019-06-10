@@ -20,9 +20,12 @@
         <shiro:hasPermission name="user:add">
             <div class="layui-btn" data-type="btnAdd" id="btnAdd">开通用户</div>
         </shiro:hasPermission>
-        <div class="grid">
-            <table class="layui-table" id="viewGrid" lay-filter="viewGrid"></table>
-        </div>
+        <form>
+            <div class="grid">
+                <table class="layui-table" id="viewGrid" lay-filter="viewGrid"></table>
+            </div>
+        </form>
+
     </div>
     <!--body尾-->
     <%@include file="/commonBottom.jsp"%>

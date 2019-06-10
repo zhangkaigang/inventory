@@ -27,6 +27,7 @@
                 /images/** = anon
                 /js/** = anon
                 /css/** = anon
+                /validateCode.jsp = anon
                 <!-- 请求logout，shiro清除session -->
                 /logout.action = logout
                 <!-- /** = authc所有url都必须认证通过后才可以访问 -->
@@ -54,10 +55,7 @@
     </bean>
 
     <!--密码凭证管理器-->
-    <bean id="credentialsMatcher" class="org.apache.shiro.authc.credential.HashedCredentialsMatcher">
-        <property name="hashAlgorithmName" value="md5"/>
-        <!--次数-->
-        <property name="hashIterations" value="1"/>
+    <bean id="credentialsMatcher" class="com.inventory.shiro.CustomCredentialsMatcher">
     </bean>
 
     <!-- 缓存管理器使用Ehcache实现 -->

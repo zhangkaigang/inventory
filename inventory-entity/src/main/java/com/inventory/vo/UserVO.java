@@ -25,9 +25,19 @@ public class UserVO implements java.io.Serializable{
      */
     private String realName;
 
+    /**
+     * 密码
+     */
     private String password;
 
+    /**
+     * 是否在职
+     */
     private String isJob;
+
+    /**
+     * 创建时间
+     */
     private String createDate;
 
     /**
@@ -44,6 +54,16 @@ public class UserVO implements java.io.Serializable{
      * 角色id，以逗号隔开
      */
     private String roleIds;
+
+    /**
+     * 验证码
+     */
+    private String code;
+
+    /**
+     * 记住我
+     */
+    private String rememberMe;
 
     public String getRoleIds() {
         return roleIds;
@@ -115,5 +135,21 @@ public class UserVO implements java.io.Serializable{
 
     public void setPermissionList(List<PermissionVO> permissionList) {
         this.permissionList = permissionList;
+    }
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
+    }
+
+    public String getRememberMe() {
+        return rememberMe;
+    }
+
+    public void setRememberMe(String rememberMe) {
+        this.rememberMe = rememberMe;
     }
 }

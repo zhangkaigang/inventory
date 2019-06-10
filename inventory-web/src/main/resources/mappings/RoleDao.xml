@@ -58,7 +58,7 @@
                 description = #{description,jdbcType=VARCHAR},
             </if>
         </set>
-        where id = #{id,jdbcType=INTEGER}
+        where id = #{id,jdbcType=INTEGER} and delete_state = '0'
     </update>
 
     <update id="deleteRole"  parameterType="java.lang.Integer">

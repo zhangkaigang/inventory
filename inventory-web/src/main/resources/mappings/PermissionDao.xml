@@ -79,7 +79,7 @@
             permission_url = #{permissionUrl, jdbcType=VARCHAR},
             sort = #{sort, jdbcType=INTEGER},
             modify_date = CURRENT_TIMESTAMP
-        where id = #{id, jdbcType=INTEGER}
+        where id = #{id, jdbcType=INTEGER} and delete_state = '0'
     </update>
 
     <update id="deletePermission" parameterType="java.lang.Integer">
