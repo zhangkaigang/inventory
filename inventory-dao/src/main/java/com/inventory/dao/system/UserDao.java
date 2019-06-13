@@ -1,6 +1,6 @@
-package com.inventory.dao;
+package com.inventory.dao.system;
 
-import com.inventory.po.User;
+import com.inventory.po.system.User;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;

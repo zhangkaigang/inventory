@@ -20,6 +20,7 @@
         <shiro:hasPermission name="user:add">
             <div class="layui-btn" data-type="btnAdd" id="btnAdd">开通用户</div>
         </shiro:hasPermission>
+        <div style="display:none;" id="currentUserId"><shiro:principal property="id"></shiro:principal></div>
         <form>
             <div class="grid">
                 <table class="layui-table" id="viewGrid" lay-filter="viewGrid"></table>
@@ -34,14 +35,12 @@
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/business/user/userList.js"></script>
 
 <script type="text/html" id="barDemo">
-    <a class="layui-btn layui-btn-xs" lay-event="btnEdit">编辑</a>
-    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="btnDelete">删除</a>
-    <%--<shiro:hasPermission name="user:edit">
+    <shiro:hasPermission name="user:edit">
         <a class="layui-btn layui-btn-xs" lay-event="btnEdit">编辑</a>
     </shiro:hasPermission>
     <shiro:hasPermission name="user:delete">
         <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="btnDelete">删除</a>
-    </shiro:hasPermission>--%>
+    </shiro:hasPermission>
 </script>
 </body>
 </html>

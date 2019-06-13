@@ -1,20 +1,33 @@
-package com.inventory.vo;
+package com.inventory.po.system;
+
+import com.inventory.po.PublicPO;
 
 /**
- * @Description:TODO
+ * @Description:角色信息POJO类
  * @Author:zhang.kaigang
- * @Date:2019/4/23 19:58
+ * @Date:2019/4/18 14:56
  * @Version:1.0
  */
-public class RoleVO {
+public class Role extends PublicPO {
+    /**
+     * 主键
+     */
     private Integer id;
-    private String roleName;
-    private String roleCode;
-    private String description;
-    private String createDate;
 
-    // 权限id，以逗号隔开
-    private String permissionIds;
+    /**
+     * 角色名称
+     */
+    private String roleName;
+
+    /**
+     * 角色编码
+     */
+    private String roleCode;
+
+    /**
+     * 角色描述
+     */
+    private String description;
 
     public Integer getId() {
         return id;
@@ -46,21 +59,5 @@ public class RoleVO {
 
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    public String getCreateDate() {
-        return createDate;
-    }
-
-    public void setCreateDate(String createDate) {
-        this.createDate = createDate;
-    }
-
-    public String getPermissionIds() {
-        return permissionIds;
-    }
-
-    public void setPermissionIds(String permissionIds) {
-        this.permissionIds = permissionIds;
     }
 }

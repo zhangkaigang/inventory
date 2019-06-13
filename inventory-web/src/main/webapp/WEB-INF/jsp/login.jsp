@@ -47,7 +47,7 @@
         </div>
         <%--<div class="layui-form-item">
             <label class="layui-form-label"></label>
-            <input type="checkbox" name="rememberMe" lay-skin="primary" title="记住我"/>
+            <input type="checkbox" name="rememberMe" lay-skin="primary" title="记住用户名和密码"/>
         </div>--%>
         <div class="layui-form-item">
             <div class="layui-input-block">

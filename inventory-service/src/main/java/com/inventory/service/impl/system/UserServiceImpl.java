@@ -1,21 +1,21 @@
-package com.inventory.service.impl;
+package com.inventory.service.impl.system;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import com.inventory.dao.UserDao;
-import com.inventory.dao.UserRoleDao;
-import com.inventory.po.User;
-import com.inventory.po.UserRole;
-import com.inventory.service.UserService;
+import com.inventory.dao.system.UserDao;
+import com.inventory.dao.system.UserRoleDao;
+import com.inventory.po.system.User;
+import com.inventory.po.system.UserRole;
+import com.inventory.service.system.UserService;
 import com.inventory.util.CommonConstants;
 import com.inventory.util.PoJoConverter;
-import com.inventory.vo.UserVO;
+import com.inventory.vo.system.UserVO;
 import org.apache.commons.collections.MapUtils;
 import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import javax.jws.soap.SOAPBinding;
 import java.util.List;
 import java.util.Map;
 
@@ -68,6 +68,7 @@ public class UserServiceImpl implements UserService {
     public void deleteUser(int id){
         // 删除用户
         userDao.deleteUser(id);
+        int a = 1/0;
         // 删除用户关联角色
         userRoleDao.deleteUserRole(id);
     }

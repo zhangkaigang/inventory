@@ -1,4 +1,6 @@
-package com.inventory.po;
+package com.inventory.po.system;
+
+import com.inventory.po.PublicPO;
 
 import java.io.Serializable;
 

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.inventory.dao.RoleDao">
-    <resultMap id="BaseResultMap" type="com.inventory.po.Role">
+<mapper namespace="com.inventory.dao.system.RoleDao">
+    <resultMap id="BaseResultMap" type="com.inventory.po.system.Role">
         <id column="id"  property="id"/>
         <result column="role_name"  property="roleName"/>
         <result column="role_code"  property="roleCode"/>
@@ -23,12 +23,12 @@
     <select id="queryRoleList" resultMap="BaseResultMap">
         select
         <include refid="Base_Column_List" />
-        from role
+        from sys_role
         where delete_state='0'
     </select>
 
-    <insert id="addRole" useGeneratedKeys="true" keyProperty="id" parameterType="com.inventory.po.Role" >
-        insert into role(
+    <insert id="addRole" useGeneratedKeys="true" keyProperty="id" parameterType="com.inventory.po.system.Role" >
+        insert into sys_role(
           id,
           role_name,
           role_code,
@@ -45,8 +45,8 @@
         )
     </insert>
     
-    <update id="editRole" parameterType="com.inventory.po.Role">
-        update role
+    <update id="editRole" parameterType="com.inventory.po.system.Role">
+        update sys_role
         <set >
             <if test="roleName != null" >
                 role_name = #{roleName,jdbcType=VARCHAR},
@@ -62,7 +62,7 @@
     </update>
 
     <update id="deleteRole"  parameterType="java.lang.Integer">
-        update role set
+        update sys_role set
             delete_state = '1',
             delete_date = CURRENT_TIMESTAMP
         where id = #{id, jdbcType=INTEGER}

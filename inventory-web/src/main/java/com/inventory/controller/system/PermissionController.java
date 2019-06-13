@@ -1,9 +1,9 @@
-package com.inventory.controller;
+package com.inventory.controller.system;
 
-import com.inventory.service.PermissionService;
+import com.inventory.controller.BaseController;
+import com.inventory.service.system.PermissionService;
 import com.inventory.util.CommonConstants;
-import com.inventory.util.ProcessResult;
-import com.inventory.vo.PermissionVO;
+import com.inventory.vo.system.PermissionVO;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
@@ -25,7 +25,7 @@ import java.util.List;
  */
 @Controller
 @RequestMapping("/permission")
-public class PermissionController extends BaseController{
+public class PermissionController extends BaseController {
 
     @Autowired
     private PermissionService permissionService;

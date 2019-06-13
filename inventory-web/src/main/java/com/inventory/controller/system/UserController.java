@@ -1,14 +1,15 @@
-package com.inventory.controller;
+package com.inventory.controller.system;
 
 import com.github.pagehelper.PageInfo;
-import com.inventory.po.User;
-import com.inventory.service.RoleService;
-import com.inventory.service.UserService;
+import com.inventory.controller.BaseController;
+import com.inventory.po.system.User;
+import com.inventory.service.system.RoleService;
+import com.inventory.service.system.UserService;
 import com.inventory.shiro.CustomRealm;
 import com.inventory.util.CommonConstants;
-import com.inventory.vo.PermissionVO;
-import com.inventory.vo.RoleVO;
-import com.inventory.vo.UserVO;
+import com.inventory.vo.system.PermissionVO;
+import com.inventory.vo.system.RoleVO;
+import com.inventory.vo.system.UserVO;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 import org.apache.commons.lang3.StringUtils;
@@ -33,7 +34,7 @@ import java.util.Map;
  */
 @Controller
 @RequestMapping("/user")
-public class UserController extends BaseController{
+public class UserController extends BaseController {
 
     @Autowired
     private UserService userService;
@@ -126,7 +127,7 @@ public class UserController extends BaseController{
     @RequestMapping(value = "/deleteUser")
     @ResponseBody
     @RequiresPermissions("user:delete")
-    public Object deleteUser(@RequestParam("id") int id){
+    public Object deleteUser(@RequestParam("id") int id) {
         try{
             userService.deleteUser(id);
             return processResult(CommonConstants.SUCCESS);

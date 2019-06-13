@@ -1,10 +1,10 @@
-package com.inventory.service.impl;
+package com.inventory.service.impl.system;
 
-import com.inventory.dao.PermissionDao;
-import com.inventory.po.Permission;
-import com.inventory.service.PermissionService;
+import com.inventory.dao.system.PermissionDao;
+import com.inventory.po.system.Permission;
+import com.inventory.service.system.PermissionService;
 import com.inventory.util.PoJoConverter;
-import com.inventory.vo.PermissionVO;
+import com.inventory.vo.system.PermissionVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

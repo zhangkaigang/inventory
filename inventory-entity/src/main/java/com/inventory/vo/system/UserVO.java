@@ -1,4 +1,4 @@
-package com.inventory.vo;
+package com.inventory.vo.system;
 
 import java.util.List;
 

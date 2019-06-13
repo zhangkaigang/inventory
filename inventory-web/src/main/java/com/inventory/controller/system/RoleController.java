@@ -1,12 +1,13 @@
-package com.inventory.controller;
+package com.inventory.controller.system;
 
-import com.inventory.po.RolePermission;
-import com.inventory.service.PermissionService;
+import com.inventory.controller.BaseController;
+import com.inventory.po.system.RolePermission;
+import com.inventory.service.system.PermissionService;
 import com.inventory.shiro.CustomRealm;
 import com.inventory.util.CommonConstants;
-import com.inventory.vo.PermissionVO;
-import com.inventory.vo.RoleVO;
-import com.inventory.service.RoleService;
+import com.inventory.vo.system.PermissionVO;
+import com.inventory.vo.system.RoleVO;
+import com.inventory.service.system.RoleService;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 import org.apache.commons.lang3.StringUtils;
@@ -30,7 +31,7 @@ import java.util.Objects;
  */
 @Controller
 @RequestMapping("/role")
-public class RoleController extends BaseController{
+public class RoleController extends BaseController {
 
     @Autowired
     private RoleService roleService;

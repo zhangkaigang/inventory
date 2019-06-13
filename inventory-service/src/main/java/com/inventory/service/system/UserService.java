@@ -1,8 +1,8 @@
-package com.inventory.service;
+package com.inventory.service.system;
 
 import com.github.pagehelper.PageInfo;
-import com.inventory.po.User;
-import com.inventory.vo.UserVO;
+import com.inventory.po.system.User;
+import com.inventory.vo.system.UserVO;
 
 import java.util.List;
 import java.util.Map;

@@ -1,4 +1,4 @@
-package com.inventory.po;
+package com.inventory.po.system;
 
 /**
  * @Description:TODO

@@ -1,6 +1,6 @@
-package com.inventory.service;
+package com.inventory.service.system;
 
-import com.inventory.vo.PermissionVO;
+import com.inventory.vo.system.PermissionVO;
 
 import java.util.List;
 import java.util.Map;

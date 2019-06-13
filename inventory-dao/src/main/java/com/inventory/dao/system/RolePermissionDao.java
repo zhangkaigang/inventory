@@ -1,6 +1,6 @@
-package com.inventory.dao;
+package com.inventory.dao.system;
 
-import com.inventory.po.RolePermission;
+import com.inventory.po.system.RolePermission;
 
 import java.util.List;
 

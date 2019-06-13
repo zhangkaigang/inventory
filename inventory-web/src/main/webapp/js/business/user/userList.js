@@ -78,11 +78,17 @@ layui.use(['table', 'form'], function() {
                 content: url
             });
         }else if(obj.event === 'btnDelete'){
+            var currentUserId = $("#currentUserId").html();
+            var id = selectData.id;
+            if(currentUserId == id){
+                layer.alert("不能删除自己")
+                return;
+            }
             // 删除用户
             layer.confirm('是否删除该用户!', {
                     btn: ['确定', '取消']
                 }, function (index, layero) {
-                    var returnData = commonFuns.$Ajax(contextPath + "/user/deleteUser.action", {"id" : selectData.id});
+                    var returnData = commonFuns.$Ajax(contextPath + "/user/deleteUser.action", {"id" : id});
                     commonFuns.dealResult(returnData);
                 }
             );

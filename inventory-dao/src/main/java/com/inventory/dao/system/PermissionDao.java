@@ -1,7 +1,7 @@
-package com.inventory.dao;
+package com.inventory.dao.system;
 
-import com.inventory.po.Permission;
-import com.inventory.vo.PermissionVO;
+import com.inventory.po.system.Permission;
+
 import java.util.List;
 import java.util.Map;
 

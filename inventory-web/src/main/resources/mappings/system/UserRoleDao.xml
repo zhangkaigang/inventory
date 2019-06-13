@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.inventory.dao.UserRoleDao">
-    <resultMap id="BaseResultMap" type="com.inventory.po.UserRole">
+<mapper namespace="com.inventory.dao.system.UserRoleDao">
+    <resultMap id="BaseResultMap" type="com.inventory.po.system.UserRole">
         <result column="user_id"  property="userId"/>
         <result column="role_id"  property="roleId"/>
     </resultMap>
@@ -9,8 +9,8 @@
         user_id, role_id
     </sql>
 
-    <insert id="addUserRole" parameterType="com.inventory.po.UserRole" >
-        insert into user_role(
+    <insert id="addUserRole" parameterType="com.inventory.po.system.UserRole" >
+        insert into sys_user_role(
           user_id,
           role_id
         ) values (
@@ -20,11 +20,11 @@
     </insert>
 
     <delete id="deleteUserRole" parameterType="java.lang.Integer">
-        delete from user_role
+        delete from sys_user_role
         where user_id = #{userId, jdbcType = INTEGER}
     </delete>
 
     <select id="queryRolesByUserId" parameterType="java.lang.Integer" resultType="java.lang.Integer">
-        select role_id from user_role where user_id = #{userId, jdbcType = INTEGER}
+        select role_id from sys_user_role where user_id = #{userId, jdbcType = INTEGER}
     </select>
 </mapper>

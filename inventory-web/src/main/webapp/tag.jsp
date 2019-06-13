@@ -2,9 +2,9 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="shiro" uri="http://shiro.apache.org/tags" %>
 
-<%@ page import="com.inventory.vo.UserVO" %>
+<%@ page import="com.inventory.vo.system.UserVO" %>
 <%@ page import="java.util.List" %>
-<%@ page import="com.inventory.vo.PermissionVO" %>
+<%@ page import="com.inventory.vo.system.PermissionVO" %>
 <%@ page import="net.sf.json.JSONArray" %>
 <%
     UserVO userVO = (UserVO) request.getSession().getAttribute("sessionUser");

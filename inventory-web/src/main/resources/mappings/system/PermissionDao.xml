@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.inventory.dao.PermissionDao">
-    <resultMap id="BaseResultMap" type="com.inventory.po.Permission">
+<mapper namespace="com.inventory.dao.system.PermissionDao">
+    <resultMap id="BaseResultMap" type="com.inventory.po.system.Permission">
         <id column="id"  property="id"/>
         <result column="permission_name"  property="permissionName"/>
         <result column="parent_id"  property="parentId"/>
@@ -31,10 +31,10 @@
             p.item_type,
             p.permission_code,
             p.permission_url
-        from permission p
-        LEFT JOIN role_permission rp ON rp.permission_id=p.id
-        LEFT JOIN role r ON r.id=rp.role_id and r.delete_state = '0'
-        LEFT JOIN user_role ur ON ur.role_id=r.id
+        from sys_permission p
+        LEFT JOIN sys_role_permission rp ON rp.permission_id=p.id
+        LEFT JOIN sys_role r ON r.id=rp.role_id and r.delete_state = '0'
+        LEFT JOIN sys_user_role ur ON ur.role_id=r.id
         WHERE ur.user_id=#{USER_ID} and p.item_type = #{ITEM_TYPE} and p.delete_state = '0'
         order by p.sort
     </select>
@@ -42,12 +42,12 @@
     <select id="queryPermissionList" resultMap="BaseResultMap">
         select
         <include refid="Base_Column_List" />
-        from permission
+        from sys_permission
         where delete_state='0' order by sort
     </select>
 
-    <insert id="addPermission" parameterType="com.inventory.po.Permission">
-        insert into permission(
+    <insert id="addPermission" parameterType="com.inventory.po.system.Permission">
+        insert into sys_permission(
               permission_name,
               parent_id,
               item_type,
@@ -70,8 +70,8 @@
           )
     </insert>
 
-    <update id="editPermission"  parameterType="com.inventory.po.Permission">
-        update permission set
+    <update id="editPermission"  parameterType="com.inventory.po.system.Permission">
+        update sys_permission set
             permission_name = #{permissionName, jdbcType=VARCHAR},
             item_type = #{itemType, jdbcType=VARCHAR},
             description = #{description, jdbcType=VARCHAR},
@@ -83,7 +83,7 @@
     </update>
 
     <update id="deletePermission" parameterType="java.lang.Integer">
-        update permission set
+        update sys_permission set
             delete_state = '1',
             delete_date = CURRENT_TIMESTAMP
         where id = #{id, jdbcType=INTEGER} or parent_id = #{id, jdbcType=INTEGER}

@@ -1,12 +1,12 @@
-package com.inventory.service.impl;
+package com.inventory.service.impl.system;
 
-import com.inventory.dao.RoleDao;
-import com.inventory.dao.RolePermissionDao;
-import com.inventory.po.Role;
-import com.inventory.po.RolePermission;
+import com.inventory.dao.system.RoleDao;
+import com.inventory.dao.system.RolePermissionDao;
+import com.inventory.po.system.Role;
+import com.inventory.po.system.RolePermission;
 import com.inventory.util.PoJoConverter;
-import com.inventory.vo.RoleVO;
-import com.inventory.service.RoleService;
+import com.inventory.vo.system.RoleVO;
+import com.inventory.service.system.RoleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

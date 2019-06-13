@@ -1,7 +1,7 @@
-package com.inventory.service;
+package com.inventory.service.system;
 
-import com.inventory.po.RolePermission;
-import com.inventory.vo.RoleVO;
+import com.inventory.po.system.RolePermission;
+import com.inventory.vo.system.RoleVO;
 
 import java.util.List;
 

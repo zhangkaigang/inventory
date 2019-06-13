@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.inventory.dao.UserDao">
-    <resultMap id="BaseResultMap" type="com.inventory.po.User">
+<mapper namespace="com.inventory.dao.system.UserDao">
+    <resultMap id="BaseResultMap" type="com.inventory.po.system.User">
         <id column="id"  property="id"/>
         <result column="login_name"  property="loginName"/>
         <result column="password"  property="password"/>
@@ -23,7 +23,7 @@
     <select id="findUserByLoginName" resultMap="BaseResultMap">
         select
         <include refid="Base_Column_List" />
-        from user
+        from sys_user
         WHERE
         login_name=#{loginName} and delete_state = '0'
     </select>
@@ -31,12 +31,12 @@
     <select id="queryUserList" resultMap="BaseResultMap">
         select
         <include refid="Base_Column_List" />
-        from user
+        from sys_user
         WHERE delete_state = '0'
     </select>
 
-    <insert id="addUser" useGeneratedKeys="true" keyProperty="id" parameterType="com.inventory.po.User">
-        insert into user(
+    <insert id="addUser" useGeneratedKeys="true" keyProperty="id" parameterType="com.inventory.po.system.User">
+        insert into sys_user(
             id,
             login_name,
             password,
@@ -54,21 +54,21 @@
     </insert>
 
     <update id="deleteUser"  parameterType="java.lang.Integer">
-        update user set
+        update sys_user set
             delete_state = '1',
             delete_date = CURRENT_TIMESTAMP
         where id = #{id, jdbcType=INTEGER}
     </update>
 
-    <update id="editUser" parameterType="com.inventory.po.User">
-        update user set
+    <update id="editUser" parameterType="com.inventory.po.system.User">
+        update sys_user set
             real_name = #{realName,jdbcType=VARCHAR},
             modify_date = CURRENT_TIMESTAMP
         where id = #{id, jdbcType=INTEGER} and delete_state = '0'
     </update>
     
     <update id="setJobUser">
-        update user set
+        update sys_user set
             is_job = #{isJob, jdbcType=VARCHAR}
         where id = #{id, jdbcType=INTEGER} and delete_state = '0'
     </update>

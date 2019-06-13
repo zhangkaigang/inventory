@@ -1,18 +1,16 @@
 package com.inventory.shiro;
 
-import com.inventory.service.PermissionService;
-import com.inventory.vo.PermissionVO;
-import com.inventory.vo.UserVO;
-import com.inventory.po.User;
-import com.inventory.service.UserService;
-import org.apache.commons.codec.digest.DigestUtils;
+import com.inventory.service.system.PermissionService;
+import com.inventory.vo.system.PermissionVO;
+import com.inventory.vo.system.UserVO;
+import com.inventory.po.system.User;
+import com.inventory.service.system.UserService;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
-import org.mindrot.jbcrypt.BCrypt;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
