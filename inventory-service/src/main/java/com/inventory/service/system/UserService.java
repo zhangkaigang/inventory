@@ -26,7 +26,7 @@ public interface UserService {
      * @param pageMap
      * @return
      */
-    PageInfo<UserVO> queryUserList(Map<String, Object> pageMap);
+    PageInfo<UserVO> queryUserList(Map<String, Object> pageMap, UserVO userVO);
 
     /**
      * 添加用户
@@ -41,6 +41,13 @@ public interface UserService {
      * @return
      */
     void deleteUser(int id);
+
+    /**
+     * 根据用户id查询
+     * @param id
+     * @return
+     */
+    UserVO queryUserById(int id);
 
     /**
      * 获取用户所拥有的的角色id集合

@@ -12,7 +12,7 @@ import java.util.List;
  * @Date:2019/4/24 19:18
  * @Version:1.0
  */
-public class PoJoConverter {
+public class PoJoConverterUtil {
 
     private static DozerBeanMapper dozer = new DozerBeanMapper();
 
@@ -21,7 +21,7 @@ public class PoJoConverter {
      * @param: [source 源对象, destinationClass 目标对象class]
      * @return: T
      */
-    public static <T> T map(Object source, Class<T> destinationClass) {
+    public static <T> T objectConverter(Object source, Class<T> destinationClass) {
         if (source == null) {
             return null;
         }
@@ -34,7 +34,7 @@ public class PoJoConverter {
      * @return: java.util.List<T>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
-    public static <T> List<T> mapList(Collection sourceList, Class<T> destinationClass) {
+    public static <T> List<T> objectListConverter(Collection sourceList, Class<T> destinationClass) {
         List<T> destinationList = new ArrayList();
         if (sourceList == null) {
             return destinationList;

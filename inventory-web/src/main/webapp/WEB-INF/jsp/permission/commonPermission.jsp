@@ -20,6 +20,12 @@
                 </div>
             </div>
             <div class="layui-form-item">
+                <label class="layui-form-label">图标</label>
+                <div class="layui-input-inline">
+                    <input placeholder="不清楚可不填" name="icon" id="icon" autocomplete="off" class="layui-input" type="text"/>
+                </div>
+            </div>
+            <div class="layui-form-item">
                 <label class="layui-form-label">权限路径</label>
                 <div class="layui-input-inline">
                     <input name="permissionUrl" id="permissionUrl" autocomplete="off" class="layui-input" type="text"/>

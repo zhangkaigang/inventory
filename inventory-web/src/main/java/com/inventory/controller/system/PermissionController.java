@@ -2,6 +2,7 @@ package com.inventory.controller.system;
 
 import com.inventory.controller.BaseController;
 import com.inventory.service.system.PermissionService;
+import com.inventory.shiro.CustomRealm;
 import com.inventory.util.CommonConstants;
 import com.inventory.vo.system.PermissionVO;
 import net.sf.json.JSONArray;
@@ -29,6 +30,9 @@ public class PermissionController extends BaseController {
 
     @Autowired
     private PermissionService permissionService;
+
+    @Autowired
+    private CustomRealm customRealm;
 
     /**
      * 跳转权限列表页面
@@ -76,6 +80,8 @@ public class PermissionController extends BaseController {
         try{
             int i = permissionService.addPermission(permissionVO);
             if(i > 0){
+                // 清除缓存
+                customRealm.clearCached();
                 return processResult(CommonConstants.SUCCESS);
             }else {
                 return processResult(CommonConstants.ERROR);
@@ -108,6 +114,8 @@ public class PermissionController extends BaseController {
         try{
             int i = permissionService.editPermission(permissionVO);
             if(i > 0){
+                // 清除缓存
+                customRealm.clearCached();
                 return processResult(CommonConstants.SUCCESS);
             }else {
                 return processResult(CommonConstants.ERROR);
@@ -126,7 +134,7 @@ public class PermissionController extends BaseController {
     @RequestMapping(value = "/deletePermission")
     @ResponseBody
     @RequiresPermissions("permission:delete")
-    public Object deletePermission(@RequestParam("id") int id) {
+    public Object deletePermission(@RequestParam("id") Integer id) {
         try {
             int i = permissionService.deletePermission(id);
             if (i > 0) {

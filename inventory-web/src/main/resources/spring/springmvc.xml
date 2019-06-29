@@ -15,7 +15,7 @@
 		http://www.springframework.org/schema/tx/spring-tx-4.0.xsd">
     <!-- springmvc 扫包范围-->
     <context:component-scan base-package="com.inventory.*">
-        <!-- 不扫描带有Controller注解的类 -->
+        <!-- 不扫描带有Service注解的类，不然事务不生效 -->
         <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Service"/>
     </context:component-scan>
 
@@ -28,6 +28,9 @@
         <property name="prefix" value="/WEB-INF/jsp/"/>
         <property name="suffix" value=".jsp"/>
     </bean>
+
+    <!--开启切面代理-->
+    <aop:aspectj-autoproxy proxy-target-class="true"/>
 
 
 </beans>

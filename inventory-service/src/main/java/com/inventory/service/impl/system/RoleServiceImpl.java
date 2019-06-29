@@ -4,7 +4,7 @@ import com.inventory.dao.system.RoleDao;
 import com.inventory.dao.system.RolePermissionDao;
 import com.inventory.po.system.Role;
 import com.inventory.po.system.RolePermission;
-import com.inventory.util.PoJoConverter;
+import com.inventory.util.PoJoConverterUtil;
 import com.inventory.vo.system.RoleVO;
 import com.inventory.service.system.RoleService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,13 +30,13 @@ public class RoleServiceImpl implements RoleService{
     @Override
     public List<RoleVO> queryRoleList() {
         List<Role> roleList = roleDao.queryRoleList();
-        List<RoleVO> roleVOList = PoJoConverter.mapList(roleList, RoleVO.class);
+        List<RoleVO> roleVOList = PoJoConverterUtil.objectListConverter(roleList, RoleVO.class);
         return roleVOList;
     }
 
     @Override
     public void addRole(RoleVO roleVO, String permissionIds) {
-        Role role = PoJoConverter.map(roleVO, Role.class);
+        Role role = PoJoConverterUtil.objectConverter(roleVO, Role.class);
         roleDao.addRole(role);
         int roleId = role.getId();
         String[] permissionIdsArray = permissionIds.split(",");
@@ -45,7 +45,7 @@ public class RoleServiceImpl implements RoleService{
 
     @Override
     public void editRole(RoleVO roleVO, String permissionIds) {
-        Role role = PoJoConverter.map(roleVO, Role.class);
+        Role role = PoJoConverterUtil.objectConverter(roleVO, Role.class);
         roleDao.editRole(role);
         int roleId = role.getId();
         String[] permissionIdsArray = permissionIds.split(",");

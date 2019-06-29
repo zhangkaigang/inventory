@@ -28,11 +28,22 @@
         login_name=#{loginName} and delete_state = '0'
     </select>
 
+    <select id="queryUserById" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from sys_user
+        WHERE
+        id=#{id} and delete_state = '0'
+    </select>
+
     <select id="queryUserList" resultMap="BaseResultMap">
         select
         <include refid="Base_Column_List" />
         from sys_user
         WHERE delete_state = '0'
+        <if test="user.realName != null and user.realName != ''">
+            AND real_name like  CONCAT('%',#{user.realName},'%')
+        </if>
     </select>
 
     <insert id="addUser" useGeneratedKeys="true" keyProperty="id" parameterType="com.inventory.po.system.User">

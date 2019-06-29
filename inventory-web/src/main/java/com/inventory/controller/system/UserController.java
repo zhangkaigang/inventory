@@ -1,22 +1,23 @@
 package com.inventory.controller.system;
 
 import com.github.pagehelper.PageInfo;
+import com.inventory.annotation.BusinessLogAnnotation;
 import com.inventory.controller.BaseController;
+import com.inventory.log.LogObjectHolder;
 import com.inventory.po.system.User;
 import com.inventory.service.system.RoleService;
 import com.inventory.service.system.UserService;
-import com.inventory.shiro.CustomRealm;
 import com.inventory.util.CommonConstants;
 import com.inventory.vo.system.PermissionVO;
 import com.inventory.vo.system.RoleVO;
 import com.inventory.vo.system.UserVO;
-import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -42,8 +43,6 @@ public class UserController extends BaseController {
     @Autowired
     private RoleService roleService;
 
-    @Autowired
-    private CustomRealm customRealm;
 
     /**
      * 跳转到用户列表页面
@@ -59,19 +58,17 @@ public class UserController extends BaseController {
      * @param response
      */
     @RequestMapping(value = "/queryUserList")
-    public void queryUserList(HttpServletRequest request, HttpServletResponse response){
+    public void queryUserList(@RequestParam(value = "page", defaultValue="1") Integer currentPage,
+                              @RequestParam(value = "limit", defaultValue="10") Integer pageSize,
+                              UserVO userVO,
+                              HttpServletResponse response){
         //拼装分页信息
-        int currentPage =  Integer.parseInt(request.getParameter(CommonConstants.LAYUI_PAGE));
-        int pageSize = Integer.parseInt(request.getParameter(CommonConstants.LAYUI_LIMIT));
         Map<String, Object> pageMap = new HashMap();
         pageMap.put(CommonConstants.CURRENT_PAGE, currentPage);
         pageMap.put(CommonConstants.PAGE_SIZE, pageSize);
-        PageInfo<UserVO> pageInfo = userService.queryUserList(pageMap);
-        JSONObject resultArray = new JSONObject();
-        resultArray.put(CommonConstants.LAYUI_CODE, 0);
-        resultArray.put(CommonConstants.LAYUI_COUNT, pageInfo.getTotal());
-        resultArray.put(CommonConstants.LAYUI_DATA, JSONArray.fromObject(pageInfo.getList()));
-        writeResponse(resultArray, response);
+        PageInfo<UserVO> pageInfo = userService.queryUserList(pageMap,userVO);
+        JSONObject resultObject = resultJSONObject(pageInfo);
+        writeResponse(resultObject, response);
     }
 
     /**
@@ -80,16 +77,15 @@ public class UserController extends BaseController {
      */
     @RequestMapping(value = "/addUserPage")
     @RequiresPermissions("user:add")
-    public ModelAndView addRolePage(){
-        ModelAndView modelAndView = new ModelAndView("/user/addUser");
+    public String addRolePage(Model model){
         try{
             // 查询所有角色
             List<RoleVO> roleVOList = roleService.queryRoleList();
-            modelAndView.addObject("roleList", roleVOList);
+            model.addAttribute("roleList", roleVOList);
         }catch (Exception e){
             logger.error(e.getMessage(), e);
         }
-        return modelAndView;
+        return "/user/addUser";
     }
 
     /**
@@ -97,6 +93,7 @@ public class UserController extends BaseController {
      */
     @RequestMapping(value = "/addUser")
     @ResponseBody
+    @BusinessLogAnnotation(name = "添加用户", key = "loginName", keyDesc = "用户名", column = "login_name", table = "sys_user")
     public Object addUser(UserVO userVO){
         try{
             String roleIds = userVO.getRoleIds();
@@ -127,7 +124,8 @@ public class UserController extends BaseController {
     @RequestMapping(value = "/deleteUser")
     @ResponseBody
     @RequiresPermissions("user:delete")
-    public Object deleteUser(@RequestParam("id") int id) {
+    @BusinessLogAnnotation(name = "删除用户", key = "id", keyDesc = "用户ID", column = "id", table = "sys_user")
+    public Object deleteUser(@RequestParam("id") Integer id) {
         try{
             userService.deleteUser(id);
             return processResult(CommonConstants.SUCCESS);
@@ -143,20 +141,24 @@ public class UserController extends BaseController {
      */
     @RequestMapping(value = "/editUserPage")
     @RequiresPermissions("user:edit")
-    public ModelAndView editUserPage(@RequestParam("id") int userId){
-        ModelAndView modelAndView = new ModelAndView("/user/editUser");
+    public String editUserPage(@RequestParam("id") Integer userId, Model model){
         try{
+            // 根据id查询用户信息
+            UserVO userVO = userService.queryUserById(userId);
+            model.addAttribute("userVO", userVO);
+            // 临时存放要修改的bean
+            LogObjectHolder.me().setOldObject(userVO);
             // 查询所有角色
             List<RoleVO> roleVOList = roleService.queryRoleList();
-            modelAndView.addObject("roleList", roleVOList);
+            model.addAttribute("roleList", roleVOList);
             // 查询用户所拥有的角色
             List<String> existRolesList = userService.queryRolesByUserId(userId);
             String existRolesStr = StringUtils.join(existRolesList, ",");
-            modelAndView.addObject("existRolesStr", existRolesStr);
+            model.addAttribute("existRolesStr", existRolesStr);
         }catch (Exception e){
             logger.error(e.getMessage(), e);
         }
-        return modelAndView;
+        return "/user/editUser";
     }
 
     /**
@@ -166,8 +168,12 @@ public class UserController extends BaseController {
      */
     @RequestMapping(value = "/editUser")
     @ResponseBody
+    @BusinessLogAnnotation(name = "修改用户", key = "loginName", keyDesc = "用户名")
     public Object editUser(UserVO userVO){
         try{
+            // 临时存放要修改的bean
+            LogObjectHolder.me().setNewObject(userVO);
+
             String roleIds = userVO.getRoleIds();
             if(StringUtils.isEmpty(roleIds)){
                 return processResult(CommonConstants.ERROR, "未授权，请您给该用户授予角色");

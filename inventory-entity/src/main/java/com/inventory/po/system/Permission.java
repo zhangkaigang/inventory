@@ -49,6 +49,20 @@ public class Permission extends PublicPO {
      */
     private Integer sort;
 
+    /**
+     * 菜单图标
+     * @return
+     */
+    private String icon;
+
+    public String getIcon() {
+        return icon;
+    }
+
+    public void setIcon(String icon) {
+        this.icon = icon;
+    }
+
     public Integer getId() {
         return id;
     }

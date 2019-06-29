@@ -70,6 +70,7 @@ public class CustomRealm extends AuthorizingRealm {
         // 封装需要展示的内容
         UserVO userVO = new UserVO();
         userVO.setId(user.getId());
+        userVO.setLoginName(user.getLoginName());
         userVO.setRealName(user.getRealName());
         // 根据用户id取出菜单集合
         List<PermissionVO> menuList = null;

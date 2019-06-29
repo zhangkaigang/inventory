@@ -34,6 +34,11 @@ public class ProcessResult {
         this.msg = msg;
     }
 
+    public ProcessResult(String result, Object data){
+        this.result = result;
+        this.data = data;
+    }
+
     public ProcessResult(String result, String msg, Object data){
         this.result = result;
         this.msg = msg;

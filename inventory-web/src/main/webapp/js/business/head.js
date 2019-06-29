@@ -30,15 +30,16 @@ var getMenus=function(menuList){
             if(node.parentId == 0){
                 var li=$("<li class='layui-nav-item' flag='"+node.id+"'></li>");
                 // 父级无page
-                var a=$("<a class='' href='javascript:;'>"+node.permissionName+"</a>");
+                var a=$("<a class='' href='javascript:;'><i class='"+node.icon+"'></i>&nbsp;&nbsp;"+node.permissionName+"</a>");
                 li.append(a);
                 //获取子节点
                 var childArry = getParentArry(node.id, menuList);
+                console.log(childArry);
                 if(childArry.length>0){
                     a.append("<span class='layui-nav-more'></span>");
                     var dl=$("<dl class='layui-nav-child'></dl>");
                     for (var y in childArry) {
-                        var dd=$("<dd><a href='"+ contextPath + childArry[y].permissionUrl +"'>" +childArry[y].permissionName+"</a></dd>");
+                        var dd=$("<dd><a href='"+ contextPath + childArry[y].permissionUrl +"'><i class='"+childArry[y].icon+"'></i>&nbsp;&nbsp;" +childArry[y].permissionName+"</a></dd>");
                         //判断选中状态
                         if(pathUri.indexOf(childArry[y].permissionUrl) > 0){
                             li.addClass("layui-nav-itemed");

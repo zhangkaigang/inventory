@@ -176,7 +176,7 @@ public class RoleController extends BaseController {
     @RequestMapping(value = "/deleteRole")
     @ResponseBody
     @RequiresPermissions("role:delete")
-    public Object deleteRole(@RequestParam("id") int id){
+    public Object deleteRole(@RequestParam("id") Integer id){
         try {
             roleService.deleteRole(id);
             return processResult(CommonConstants.SUCCESS);

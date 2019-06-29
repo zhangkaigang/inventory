@@ -1,5 +1,9 @@
 package com.inventory.shiro;
 
+import com.inventory.log.LogFactory;
+import com.inventory.log.LogManager;
+import com.inventory.log.LogTaskFactory;
+import com.inventory.po.system.LoginLog;
 import com.inventory.vo.system.UserVO;
 import org.apache.shiro.authc.AuthenticationToken;
 import org.apache.shiro.subject.Subject;
@@ -69,6 +73,13 @@ public class CustomFormAuthenticationFilter extends FormAuthenticationFilter {
         HttpSession session = httpServletRequest.getSession();
         //把用户信息保存到session
         session.setAttribute("sessionUser", sessionUser);
+
+        // 登录成功-写入登录日志
+        String loginName = sessionUser.getLoginName();
+        String ip = request.getRemoteHost();
+        LoginLog loginLog = LogFactory.createLoginLog("登录日志", loginName, ip);
+        LogManager.me().executeLog(LogTaskFactory.addLoginLog(loginLog));
+
         return super.onLoginSuccess(token, subject, request, response);
     }
 }

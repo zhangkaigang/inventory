@@ -18,7 +18,7 @@
         <!--body主体-->
         <div class="layui-body" style="margin: 1%">
             <shiro:hasPermission name="role:add">
-                <div class="layui-btn" data-type="btnAdd" id="btnAdd">开通角色</div>
+                <div class="layui-btn layui-btn-normal" data-type="btnAdd" id="btnAdd"><i class="layui-icon">&#xe654;</i>开通角色</div>
             </shiro:hasPermission>
             <div class="grid">
                 <table class="layui-table" id="viewGrid" lay-filter="viewGrid"></table>

@@ -10,6 +10,7 @@
         <result column="permission_code"  property="permissionCode"/>
         <result column="permission_url"  property="permissionUrl"/>
         <result column="sort" property="sort"/>
+        <result column="icon" property="icon"/>
 
         <result column="create_op"  property="createOp"/>
         <result column="create_date"  property="createDate" jdbcType="TIMESTAMP"/>
@@ -19,7 +20,7 @@
         <result column="delete_date"  property="deleteDate" jdbcType="TIMESTAMP"/>
     </resultMap>
     <sql id="Base_Column_List">
-        id, permission_name, parent_id, item_type, description, permission_code, permission_url, sort,
+        id, permission_name, parent_id, item_type, description, permission_code, permission_url, sort, icon,
         create_op, create_date, modify_op, modify_date, delete_state, delete_date
     </sql>
 
@@ -29,6 +30,7 @@
             p.permission_name,
             p.parent_id,
             p.item_type,
+            p.icon,
             p.permission_code,
             p.permission_url
         from sys_permission p
@@ -55,6 +57,7 @@
               permission_code,
               permission_url,
               sort,
+              icon,
               create_op,
               create_date
           ) values(
@@ -65,6 +68,7 @@
              #{permissionCode, jdbcType=VARCHAR},
              #{permissionUrl, jdbcType=VARCHAR},
              #{sort, jdbcType=INTEGER},
+             #{icon, jdbcType=VARCHAR},
              #{createOp, jdbcType=INTEGER},
              CURRENT_TIMESTAMP
           )
@@ -78,6 +82,7 @@
             permission_code = #{permissionCode, jdbcType=VARCHAR},
             permission_url = #{permissionUrl, jdbcType=VARCHAR},
             sort = #{sort, jdbcType=INTEGER},
+            icon = #{icon, jdbcType=VARCHAR},
             modify_date = CURRENT_TIMESTAMP
         where id = #{id, jdbcType=INTEGER} and delete_state = '0'
     </update>

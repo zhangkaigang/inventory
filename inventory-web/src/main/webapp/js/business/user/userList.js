@@ -53,8 +53,16 @@ layui.use(['table', 'form'], function() {
                 area: ['500px', '600px'],
                 content: url
             });
+        },
+        // 搜索
+        btnSearch : function () {
+            // 监听表单提交
+            form.on('submit(btnSearch)', function(data){
+                //重新加载table
+                selfFuns.load(data);
+                return false;
+            });
         }
-
     };
 
     // 监听在职操作

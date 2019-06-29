@@ -3,7 +3,7 @@ package com.inventory.service.impl.system;
 import com.inventory.dao.system.PermissionDao;
 import com.inventory.po.system.Permission;
 import com.inventory.service.system.PermissionService;
-import com.inventory.util.PoJoConverter;
+import com.inventory.util.PoJoConverterUtil;
 import com.inventory.vo.system.PermissionVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -26,26 +26,26 @@ public class PermissionServiceImpl implements PermissionService{
     @Override
     public List<PermissionVO> queryPermissionByUserId(Map<String, Object> map) {
         List<Permission> permissionList = permissionDao.queryPermissionByUserId(map);
-        List<PermissionVO> permissionVOList = PoJoConverter.mapList(permissionList, PermissionVO.class);
+        List<PermissionVO> permissionVOList = PoJoConverterUtil.objectListConverter(permissionList, PermissionVO.class);
         return permissionVOList;
     }
 
     @Override
     public List<PermissionVO> queryPermissionList() {
         List<Permission> permissionList = permissionDao.queryPermissionList();
-        List<PermissionVO> permissionVOList = PoJoConverter.mapList(permissionList, PermissionVO.class);
+        List<PermissionVO> permissionVOList = PoJoConverterUtil.objectListConverter(permissionList, PermissionVO.class);
         return permissionVOList;
     }
 
     @Override
     public int addPermission(PermissionVO permissionVO) {
-        Permission permission = PoJoConverter.map(permissionVO, Permission.class);
+        Permission permission = PoJoConverterUtil.objectConverter(permissionVO, Permission.class);
         return permissionDao.addPermission(permission);
     }
 
     @Override
     public int editPermission(PermissionVO permissionVO) {
-        Permission permission = PoJoConverter.map(permissionVO, Permission.class);
+        Permission permission = PoJoConverterUtil.objectConverter(permissionVO, Permission.class);
         return permissionDao.editPermission(permission);
     }
 

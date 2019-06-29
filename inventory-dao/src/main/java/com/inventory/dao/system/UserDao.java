@@ -24,7 +24,7 @@ public interface UserDao {
      * 查询用户列表
      * @return
      */
-    List<User> queryUserList();
+    List<User> queryUserList(@Param("user") User user);
 
     /**
      * 新增用户
@@ -46,6 +46,13 @@ public interface UserDao {
      * @return
      */
     int editUser(User user);
+
+    /**
+     * 根据用户id查询用户信息
+     * @param id
+     * @return
+     */
+    User queryUserById(int id);
 
     /**
      * 设置用户在职状态

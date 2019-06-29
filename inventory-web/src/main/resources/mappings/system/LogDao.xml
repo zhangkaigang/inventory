@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.inventory.dao.system.LogDao">
+
+    <resultMap id="BusinessLogResultMap" type="com.inventory.po.system.BusinessLog">
+        <result column="id"  property="id"/>
+        <result column="log_name"  property="logName"/>
+        <result column="user_id"  property="userId"/>
+        <result column="class_name"  property="className"/>
+        <result column="method_name"  property="methodName"/>
+        <result column="column_name"  property="columnName"/>
+        <result column="table_name"  property="tableName"/>
+        <result column="message"  property="message"/>
+        <result column="detail"  property="detail" jdbcType="LONGVARCHAR"/>
+        <result column="create_date"  property="createDate"/>
+    </resultMap>
+
+    <insert id="addBusinessLog" parameterType="com.inventory.po.system.BusinessLog">
+        INSERT INTO sys_business_log(
+            log_name,
+            user_id,
+            class_name,
+            method_name,
+            column_name,
+            table_name,
+            message,
+            detail,
+            create_date
+        ) values (
+            #{logName, jdbcType=VARCHAR},
+            #{userId, jdbcType=INTEGER},
+            #{className, jdbcType=VARCHAR},
+            #{methodName, jdbcType=VARCHAR},
+            #{columnName, jdbcType=VARCHAR},
+            #{tableName, jdbcType=VARCHAR},
+            #{message, jdbcType=VARCHAR},
+            #{detail, jdbcType=VARCHAR},
+            CURRENT_TIMESTAMP
+        )
+    </insert>
+
+    <select id="queryBusinessLogList" resultMap="BusinessLogResultMap">
+        SELECT
+            A.ID,
+            A.LOG_NAME,
+            A.USER_ID,
+            B.LOGIN_NAME AS operateName,
+            A.CLASS_NAME,
+            A.METHOD_NAME,
+            A.MESSAGE,
+            A.COLUMN_NAME,
+            A.TABLE_NAME,
+            A.CREATE_DATE
+        FROM sys_business_log A
+        LEFT JOIN sys_user B ON A.USER_ID = B.ID
+        WHERE 1 = 1
+        <if test="businessLog.logName != null and businessLog.logName != ''">
+            AND A.LOG_NAME like  CONCAT('%',#{businessLog.logName},'%')
+        </if>
+        <if test="businessLog.createDateStart!=null and businessLog.createDateStart!=''">
+            AND A.CREATE_DATE &gt;= #{businessLog.createDateStart}
+        </if>
+        <if test="businessLog.createDateEnd!=null and businessLog.createDateEnd!=''">
+            AND A.CREATE_DATE &lt;= #{businessLog.createDateEnd}
+        </if>
+        ORDER BY A.CREATE_DATE DESC
+    </select>
+
+    <select id="queryBusinessLogDetailById" resultMap="BusinessLogResultMap">
+        SELECT
+            MESSAGE,
+            DETAIL
+        FROM sys_business_log
+        WHERE ID = #{id}
+    </select>
+
+    <delete id="clearBusinessLog">
+        delete from sys_business_log
+    </delete>
+
+
+    <resultMap id="LoginLogResultMap" type="com.inventory.po.system.LoginLog">
+        <result column="id"  property="id"/>
+        <result column="log_name"  property="logName"/>
+        <result column="login_name"  property="loginName"/>
+        <result column="ip"  property="ip"/>
+        <result column="create_date"  property="createDate"/>
+    </resultMap>
+
+    <insert id="addLoginLog" parameterType="com.inventory.po.system.LoginLog">
+        insert into sys_login_log(
+            log_name,
+            login_name,
+            ip,
+            create_date
+        ) values (
+            #{logName, jdbcType=VARCHAR},
+            #{loginName, jdbcType=VARCHAR},
+            #{ip, jdbcType=VARCHAR},
+            CURRENT_TIMESTAMP
+        )
+    </insert>
+
+
+    <select id="queryLoginLogList" resultMap="LoginLogResultMap">
+        SELECT
+        A.ID,
+        A.LOG_NAME,
+        A.LOGIN_NAME,
+        A.IP,
+        A.CREATE_DATE
+        FROM sys_login_log A
+        WHERE 1 = 1
+        <if test="loginLog.createDateStart!=null and loginLog.createDateStart!=''">
+            AND A.CREATE_DATE &gt;= #{loginLog.createDateStart}
+        </if>
+        <if test="loginLog.createDateEnd!=null and loginLog.createDateEnd!=''">
+            AND A.CREATE_DATE &lt;= #{loginLog.createDateEnd}
+        </if>
+        ORDER BY A.CREATE_DATE DESC
+    </select>
+
+    <delete id="clearLoginLog">
+        delete from sys_login_log
+    </delete>
+</mapper>

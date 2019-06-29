@@ -10,6 +10,7 @@ var cols = [[
             }
         }
     },
+    {field:'icon', title: '图标'},
     {field:'permissionUrl', title: '权限路径'},
     {field:'permissionCode', title: '权限编码'},
     {field:'sort', title: '顺序'},

@@ -26,7 +26,7 @@
         <!--body主体-->
         <div class="layui-body" style="margin: 1%">
             <shiro:hasPermission name="permission:add">
-                <button class="layui-btn" data-type="btnAdd" id="btnAdd">开通权限</button>
+                <button class="layui-btn layui-btn-normal" data-type="btnAdd" id="btnAdd"><i class="layui-icon">&#xe654;</i>开通权限</button>
             </shiro:hasPermission>
             <div class="grid">
                 <table class="layui-table" id="viewGrid" lay-filter="viewGrid"></table>

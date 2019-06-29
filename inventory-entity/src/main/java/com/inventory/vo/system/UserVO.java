@@ -1,5 +1,7 @@
 package com.inventory.vo.system;
 
+import com.inventory.annotation.FieldMeta;
+
 import java.util.List;
 
 /**
@@ -23,6 +25,7 @@ public class UserVO implements java.io.Serializable{
     /**
      * 真实姓名
      */
+    @FieldMeta(name = "真实姓名")
     private String realName;
 
     /**

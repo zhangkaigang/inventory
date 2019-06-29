@@ -16,11 +16,23 @@
     <%@include file="/commonBody.jsp"%>
     <!--body主体-->
     <div class="layui-body" style="margin: 1%">
+        <!--查询表单-->
+        <form id="searchForm" class="layui-form layui-form-pane" method="post" action="" style="margin-top: 20px;">
+            <div class="layui-form-item">
+                <label class="layui-form-label">真实姓名</label>
+                <div class="layui-input-inline">
+                    <input id="realName" name="realName" autocomplete="off" class="layui-input" type="text"/>
+                </div>
+                <button class="layui-btn"  lay-submit="" data-type="btnSearch" lay-filter="btnSearch"><i class="layui-icon">&#xe615;</i>查询</button>
+            </div>
+        </form>
+
         <!--有user:add权限才显示开通用户链接，没有该权限不显示，相当于if(hasPermission(user:add))-->
         <shiro:hasPermission name="user:add">
-            <div class="layui-btn" data-type="btnAdd" id="btnAdd">开通用户</div>
+            <div class="layui-btn layui-btn-normal" data-type="btnAdd" id="btnAdd"><i class="layui-icon">&#xe654;</i>开通用户</div>
         </shiro:hasPermission>
         <div style="display:none;" id="currentUserId"><shiro:principal property="id"></shiro:principal></div>
+        <!--添加一个form为了监听switch事件-->
         <form>
             <div class="grid">
                 <table class="layui-table" id="viewGrid" lay-filter="viewGrid"></table>

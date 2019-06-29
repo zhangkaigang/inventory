@@ -8,13 +8,12 @@ import com.inventory.po.system.User;
 import com.inventory.po.system.UserRole;
 import com.inventory.service.system.UserService;
 import com.inventory.util.CommonConstants;
-import com.inventory.util.PoJoConverter;
+import com.inventory.util.PoJoConverterUtil;
 import com.inventory.vo.system.UserVO;
 import org.apache.commons.collections.MapUtils;
 import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Map;
@@ -42,12 +41,13 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public PageInfo<UserVO> queryUserList(Map<String, Object> pageMap) {
-        int currentPage = MapUtils.getIntValue(pageMap, CommonConstants.CURRENT_PAGE, 1);
-        int pageSize = MapUtils.getIntValue(pageMap, CommonConstants.PAGE_SIZE, 10);
+    public PageInfo<UserVO> queryUserList(Map<String, Object> pageMap, UserVO userVO) {
+        int currentPage = MapUtils.getIntValue(pageMap, CommonConstants.CURRENT_PAGE);
+        int pageSize = MapUtils.getIntValue(pageMap, CommonConstants.PAGE_SIZE);
         PageHelper.startPage(currentPage, pageSize);
-        List<User> userList = userDao.queryUserList();
-        List<UserVO> userVOList = PoJoConverter.mapList(userList, UserVO.class);
+        User user = PoJoConverterUtil.objectConverter(userVO, User.class);
+        List<User> userList = userDao.queryUserList(user);
+        List<UserVO> userVOList = PoJoConverterUtil.objectListConverter(userList, UserVO.class);
         PageInfo<UserVO> pageInfo = new PageInfo<>(userVOList);
         return pageInfo;
     }
@@ -55,7 +55,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public void addUser(UserVO userVO) {
         String roleIds = userVO.getRoleIds();
-        User user = PoJoConverter.map(userVO, User.class);
+        User user = PoJoConverterUtil.objectConverter(userVO, User.class);
         String encodePwd = BCrypt.hashpw(user.getPassword(), BCrypt.gensalt());
         user.setPassword(encodePwd);
         userDao.addUser(user);
@@ -68,9 +68,15 @@ public class UserServiceImpl implements UserService {
     public void deleteUser(int id){
         // 删除用户
         userDao.deleteUser(id);
-        int a = 1/0;
         // 删除用户关联角色
         userRoleDao.deleteUserRole(id);
+    }
+
+    @Override
+    public UserVO queryUserById(int id) {
+        User user = userDao.queryUserById(id);
+        UserVO userVO = PoJoConverterUtil.objectConverter(user, UserVO.class);
+        return userVO;
     }
 
     @Override
@@ -81,7 +87,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public void editUser(UserVO userVO) {
         String roleIds = userVO.getRoleIds();
-        User user = PoJoConverter.map(userVO, User.class);
+        User user = PoJoConverterUtil.objectConverter(userVO, User.class);
         userDao.editUser(user);
         int userId = user.getId();
         String[] roleIdsArray = roleIds.split(",");
