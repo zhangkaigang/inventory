@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.inventory.dao.develop.ExcelDao">
+
+
+    <select id="getExcelTableMapping" parameterType="java.lang.String" resultType="java.util.HashMap">
+        SELECT
+            COLUMN_NAME,
+            DATA_TYPE,
+            DATA_LENGTH,
+            DATA_PRECISION,
+            DATA_SCALE,
+            NULLABLE,
+            ENUM_KEY,
+            FIELD_NAME
+        FROM EXCEL_TABLE_MAPPING
+        WHERE TABLE_NAME = #{tableName} AND EXCEL_TYPE = #{excelType}
+        ORDER BY COLUMN_SEQ
+    </select>
+</mapper>

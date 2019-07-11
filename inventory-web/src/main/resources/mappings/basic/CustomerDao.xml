@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.inventory.dao.basic.CustomerDao">
+    <resultMap id="BaseResultMap" type="com.inventory.po.basic.Customer">
+        <id column="id"  property="id"/>
+        <id column="name"  property="name"/>
+        <id column="contact_man"  property="contactMan"/>
+        <id column="contact_tel"  property="contactTel"/>
+        <id column="email"  property="email"/>
+        <id column="address"  property="address"/>
+        <id column="note"  property="note"/>
+
+        <result column="create_op"  property="createOp"/>
+        <result column="create_date"  property="createDate" jdbcType="TIMESTAMP"/>
+        <result column="modify_op"  property="modifyOp"/>
+        <result column="modify_date"  property="modifyDate" jdbcType="TIMESTAMP"/>
+        <result column="delete_state"  property="deleteState"/>
+        <result column="delete_date"  property="deleteDate" jdbcType="TIMESTAMP"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        id, name, contact_man, contact_tel, email, address, note,
+        create_op, create_date, modify_op, modify_date, delete_state, delete_date
+    </sql>
+
+    <select id="queryCustomerList" parameterType="com.inventory.po.basic.Customer">
+        select
+        <include refid="Base_Column_List" />
+        from basic_customer
+        WHERE delete_state = '0'
+    </select>
+
+    <select id="queryCountByTel" parameterType="java.lang.String" resultType="java.lang.Integer">
+        select count(0) from basic_customer where contact_tel = #{contactTel} and delete_state = '0'
+    </select>
+
+
+</mapper>

@@ -7,6 +7,9 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ include file="/tag.jsp"%>
+<style type="text/css">
+    .layui-table-body {height: auto !important;}
+</style>
 <script type="text/javascript">
     function getPermissionBtn(){
         var editBtn = '<shiro:hasPermission name="permission:edit"><a class="layui-btn layui-btn-xs" lay-event="btnEdit">编辑</a></shiro:hasPermission> ';

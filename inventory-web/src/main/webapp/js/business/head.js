@@ -34,7 +34,6 @@ var getMenus=function(menuList){
                 li.append(a);
                 //获取子节点
                 var childArry = getParentArry(node.id, menuList);
-                console.log(childArry);
                 if(childArry.length>0){
                     a.append("<span class='layui-nav-more'></span>");
                     var dl=$("<dl class='layui-nav-child'></dl>");

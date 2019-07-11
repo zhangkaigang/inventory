@@ -1,5 +1,6 @@
 package com.inventory.controller.system;
 
+import com.inventory.annotation.BusinessLogAnnotation;
 import com.inventory.controller.BaseController;
 import com.inventory.service.system.PermissionService;
 import com.inventory.shiro.CustomRealm;
@@ -76,6 +77,7 @@ public class PermissionController extends BaseController {
      */
     @RequestMapping(value = "/addPermission")
     @ResponseBody
+    @BusinessLogAnnotation(name = "添加权限", key = "permissionName", keyDesc = "权限名称", column = "permission_name", table = "sys_permission")
     public Object addPermission(PermissionVO permissionVO){
         try{
             int i = permissionService.addPermission(permissionVO);
@@ -110,6 +112,7 @@ public class PermissionController extends BaseController {
      */
     @RequestMapping(value = "/editPermission")
     @ResponseBody
+    @BusinessLogAnnotation(name = "修改权限", key = "permissionName", keyDesc = "权限名称")
     public Object editPermission(PermissionVO permissionVO){
         try{
             int i = permissionService.editPermission(permissionVO);
@@ -134,6 +137,7 @@ public class PermissionController extends BaseController {
     @RequestMapping(value = "/deletePermission")
     @ResponseBody
     @RequiresPermissions("permission:delete")
+    @BusinessLogAnnotation(name = "删除权限", key = "id", keyDesc = "权限ID", column = "id", table = "sys_permission")
     public Object deletePermission(@RequestParam("id") Integer id) {
         try {
             int i = permissionService.deletePermission(id);

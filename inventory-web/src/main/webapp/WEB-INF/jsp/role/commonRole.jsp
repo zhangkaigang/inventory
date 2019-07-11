@@ -32,7 +32,7 @@
             <div class="layui-form-item">
                 <label class="layui-form-label">权限：</label>
                 <div class="layui-input-block">
-                    <ul id="permissionTree" class="ztree"></ul>
+                    <ul id="permissionTree" class="ztree" style="height: 300px;overflow-y: scroll;"></ul>
                 </div>
             </div>
             <div class="layui-form-item">

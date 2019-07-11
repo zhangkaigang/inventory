@@ -1,5 +1,7 @@
 package com.inventory.vo.system;
 
+import com.inventory.annotation.FieldMeta;
+
 /**
  * @Description:TODO
  * @Author:zhang.kaigang
@@ -8,9 +10,16 @@ package com.inventory.vo.system;
  */
 public class RoleVO {
     private Integer id;
+
+    @FieldMeta(name = "角色名称")
     private String roleName;
+
+    @FieldMeta(name = "角色编码")
     private String roleCode;
+
+    @FieldMeta(name = "角色描述")
     private String description;
+
     private String createDate;
 
     // 权限id，以逗号隔开

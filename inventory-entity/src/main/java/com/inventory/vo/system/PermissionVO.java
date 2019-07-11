@@ -1,5 +1,7 @@
 package com.inventory.vo.system;
 
+import com.inventory.annotation.FieldMeta;
+
 /**
  * @Description:权限信息VO类
  * @Author:zhang.kaigang
@@ -9,18 +11,22 @@ package com.inventory.vo.system;
 public class PermissionVO implements java.io.Serializable{
     private Integer id;
 
+    @FieldMeta(name = "权限名称")
     private String permissionName;
 
     private Integer parentId;
 
     private String itemType;
 
+    @FieldMeta(name = "权限编码")
     private String permissionCode;
 
+    @FieldMeta(name = "权限url")
     private String permissionUrl;
 
     private Integer sort;
 
+    @FieldMeta(name = "权限描述")
     private String description;
 
     private Boolean checked;

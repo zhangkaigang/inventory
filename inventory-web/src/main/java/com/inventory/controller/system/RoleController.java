@@ -1,5 +1,6 @@
 package com.inventory.controller.system;
 
+import com.inventory.annotation.BusinessLogAnnotation;
 import com.inventory.controller.BaseController;
 import com.inventory.po.system.RolePermission;
 import com.inventory.service.system.PermissionService;
@@ -86,6 +87,7 @@ public class RoleController extends BaseController {
      */
     @RequestMapping(value = "/addRole")
     @ResponseBody
+    @BusinessLogAnnotation(name = "添加角色", key = "roleName", keyDesc = "角色名称", column = "role_name", table = "sys_role")
     public Object addRole(RoleVO roleVO){
         try{
             String permissionIds = roleVO.getPermissionIds();
@@ -120,6 +122,7 @@ public class RoleController extends BaseController {
      */
     @RequestMapping(value = "/editRole")
     @ResponseBody
+    @BusinessLogAnnotation(name = "修改角色", key = "roleName", keyDesc = "角色名称")
     public Object editRole(RoleVO roleVO){
         try{
             String permissionIds = roleVO.getPermissionIds();
@@ -176,6 +179,7 @@ public class RoleController extends BaseController {
     @RequestMapping(value = "/deleteRole")
     @ResponseBody
     @RequiresPermissions("role:delete")
+    @BusinessLogAnnotation(name = "删除角色", key = "id", keyDesc = "角色ID", column = "id", table = "sys_role")
     public Object deleteRole(@RequestParam("id") Integer id){
         try {
             roleService.deleteRole(id);

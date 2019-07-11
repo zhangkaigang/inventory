@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.inventory.dao.system.EnumsDao">
+
+    <select id="getAllEnums" resultType="java.util.HashMap">
+        SELECT
+            ENUMS_ID,
+            ENUMS_DESC,
+            ENUMS_PARENT_ID,
+            KEYWORD,
+            KEYWORD_DESC,
+            SEQ
+        FROM sys_enums
+        WHERE DELETE_STATE = '0'
+    </select>
+
+    <select id="getAllEnumsKeyDescId" parameterType="java.lang.String" resultType="java.util.HashMap">
+        select
+            ENUMS_ID,
+            CONCAT(KEYWORD , ',' , ENUMS_DESC) as KEYDESC
+        from sys_enums
+        where delete_state = '0'
+    </select>
+</mapper>
