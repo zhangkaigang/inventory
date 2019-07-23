@@ -71,9 +71,8 @@ public class ExcelListener extends AnalysisEventListener {
         // 校验通过进行导入，校验不过直接返回
         if(recordList.isEmpty()){
             dataList.remove(0);
-            List<Map<Integer, Object>> parseData = excelService.parseData(dataList);
-            System.out.println("1");
-//            excelService.insertData(parseData);
+            List<Map<String, Object>> parseData = excelService.parseData(dataList);
+            excelService.insertData(parseData);
         }
     }
 

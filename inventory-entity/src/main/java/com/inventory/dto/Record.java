@@ -1,5 +1,6 @@
 package com.inventory.dto;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -13,7 +14,7 @@ import java.util.Map;
 public class Record {
 
     private String errCode;
-    private List<Map> errList;
+    private List<Map<String, String>> errList = new ArrayList<>();
 
     public String getErrCode() {
         return errCode;
@@ -23,14 +24,16 @@ public class Record {
         this.errCode = errCode;
     }
 
-    public List<Map> getErrList() {
+    public List<Map<String, String>> getErrList() {
         return errList;
     }
 
     public void setErrList(String lineNo, String msg) {
-        Map map = new HashMap();
+        Map<String, String> map = new HashMap();
         map.put("no", lineNo);
         map.put("msg", msg);
         errList.add(map);
     }
+
+
 }

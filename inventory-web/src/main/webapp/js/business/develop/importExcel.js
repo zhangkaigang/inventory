@@ -75,3 +75,17 @@ layui.use(['upload', 'form'], function(){
     });
 });
 
+function viewImpInfo() {
+    parent.layer.open({
+        type: 2,
+        area: ['600px', '600px'],
+        fixed: false, //不固定
+        maxmin: true,
+        content: contextPath + "/excel/importLogPage.action"
+    });
+}
+
+function errorExport(){
+    location.href = contextPath + "/excel/exportErrorExcel.action";
+}
+

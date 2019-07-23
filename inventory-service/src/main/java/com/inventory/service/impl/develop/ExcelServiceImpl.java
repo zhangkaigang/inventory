@@ -55,16 +55,77 @@ public class ExcelServiceImpl implements ExcelService {
             // 非空校验
             mustFieldCheck(i, recordList, dataArr, headArr, errorRowList);
             // 唯一性校验
-            uniqueFieldCheck(i, recordList, dataArr, headArr, errorRowList);
+//            uniqueFieldCheck(i, recordList, dataArr, headArr, errorRowList);
         }
         return recordList;
     }
 
     @Override
-    public List<Map<Integer, Object>> parseData(List<String[]> dataList) {
+    public List<Map<String, Object>> parseData(List<String[]> dataList) {
         List<Map<String,Object>> mappingList = excelDao.getExcelTableMapping("basic_customer", "basic_customer");
         int mappingNum = mappingList.size();
         return parseDataThreads(dataList, mappingList, mappingNum);
+    }
+
+    @Override
+    public void insertData(List<Map<String, Object>> parseDataList) {
+        List<Map<String,Object>> mappingList = excelDao.getExcelTableMapping("basic_customer", "basic_customer");
+        int mappingNum = mappingList.size();
+        insertDataThreads(parseDataList, mappingList, mappingNum);
+    }
+
+    /**
+     * 插入解析后的数据线程分配
+     * @param parseDataList
+     * @param mappingList
+     * @param mappingNum
+     */
+    private void insertDataThreads(List<Map<String, Object>> parseDataList,List<Map<String,Object>> mappingList,int mappingNum){
+        int parseDataNum = parseDataList.size();
+        // 一个线程处理多少条数据,默认1000
+        int count = 10;
+        // 开启的线程数
+        int runThreadSize = (parseDataNum / count) + 1;
+        int startIndex;
+        int endIndex;
+        long cu = System.currentTimeMillis();
+        // 线程池
+        ThreadPoolExecutor producerPool = new ThreadPoolExecutor(5, 100, 100,
+                TimeUnit.SECONDS, new ArrayBlockingQueue<Runnable>(10),
+                new ThreadPoolExecutor.DiscardOldestPolicy());
+        // 创建一个计数器
+        CountDownLatch threadCountDown = new CountDownLatch(runThreadSize);
+        // 循环创建线程
+        for (int i = 0; i < runThreadSize; i++) {
+            if ((i + 1) == runThreadSize) {
+                startIndex = i * count;
+                endIndex = parseDataNum;
+            } else {
+                startIndex = i * count;
+                endIndex = (i + 1) * count;
+            }
+            Map<String, Object> paramMap = new HashMap<>();
+            paramMap.put("threadCountDown", threadCountDown);
+            paramMap.put("startIndex", startIndex);
+            paramMap.put("endIndex", endIndex);
+            paramMap.put("parseDataList", parseDataList);
+            paramMap.put("mappingList", mappingList);
+            paramMap.put("mappingNum", mappingNum);
+            ExcelInsertThread thread = new ExcelInsertThread(paramMap);
+            producerPool.submit(thread);
+        }
+        try {
+            threadCountDown.await();
+            producerPool.shutdown();
+        } catch (InterruptedException e) {
+            logger.error(e.getMessage(),e);
+            Thread.currentThread().interrupt();
+        }finally{
+            if(System.currentTimeMillis()-cu > 30000 && !producerPool.isShutdown()){
+                producerPool.shutdown();
+            }
+        }
+
     }
 
     /**
@@ -74,10 +135,10 @@ public class ExcelServiceImpl implements ExcelService {
      * @param mappingNum
      * @return
      */
-    private List<Map<Integer, Object>>  parseDataThreads(List<String[]> dataList,List<Map<String,Object>> mappingList,int mappingNum){
+    private List<Map<String, Object>>  parseDataThreads(List<String[]> dataList,List<Map<String,Object>> mappingList,int mappingNum){
         int dataNum = dataList.size();
         // 一个线程处理多少条数据,默认1000
-        int count = 1000;
+        int count = 10;
         // 开启的线程数
         int parseThreadSize = (dataNum / count) + 1;
         int parseStartIndex;
@@ -91,7 +152,7 @@ public class ExcelServiceImpl implements ExcelService {
                 new ThreadPoolExecutor.DiscardOldestPolicy());
         // 创建一个计数器
         CountDownLatch parseThreadCountDown = new CountDownLatch(parseThreadSize);
-        Map<Integer, List<Map<Integer, Object>>> threadDataMap = new ConcurrentHashMap<>();
+        Map<Integer, List<Map<String, Object>>> threadDataMap = new ConcurrentHashMap<>();
         // 循环创建线程
         for (int i = 0; i < parseThreadSize; i++) {
             if ((i + 1) == parseThreadSize) {
@@ -101,7 +162,6 @@ public class ExcelServiceImpl implements ExcelService {
                 parseStartIndex = i * count;
                 parseEndIndex = (i + 1) * count;
             }
-            List<Map<Integer, Object>> dataMapList = new ArrayList<>();
             Map<String, Object> paramMap = new HashMap<>();
             paramMap.put("parseThreadCountDown", parseThreadCountDown);
             paramMap.put("parseStartIndex", parseStartIndex);
@@ -127,9 +187,9 @@ public class ExcelServiceImpl implements ExcelService {
                 producerPool.shutdown();
             }
         }
-        List<Map<Integer, Object>> dataMapList = new ArrayList<>();
+        List<Map<String, Object>> dataMapList = new ArrayList<>();
         for (int i = 0; i < parseThreadSize; i++) {
-            List<Map<Integer, Object>> arrayList = threadDataMap.get(i);
+            List<Map<String, Object>> arrayList = threadDataMap.get(i);
             dataMapList.addAll(arrayList);
         }
         return dataMapList;

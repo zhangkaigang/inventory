@@ -11,6 +11,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.CountDownLatch;
@@ -38,7 +39,7 @@ public class ExcelParseThread implements Runnable{
     private int threadNum;
     private List<String[]> dataList;
     private List<Map<String,Object>> mappingList;
-    private Map<Integer, List<Map<Integer, Object>>> threadDataMap;
+    private Map<Integer, List<Map<String, Object>>> threadDataMap;
     private int mappingNum;
 
     public ExcelParseThread(Map<String, Object> paramMap) {
@@ -48,17 +49,18 @@ public class ExcelParseThread implements Runnable{
         this.dataList = (List<String[]>)MapUtils.getObject(paramMap, "dataList");
         this.threadNum = MapUtils.getInteger(paramMap, "threadNum");
         this.mappingList = (List<Map<String,Object>>) MapUtils.getObject(paramMap, "mappingList");
-        this.threadDataMap = (Map<Integer, List<Map<Integer, Object>>>)MapUtils.getObject(paramMap, "threadDataMap");
+        this.threadDataMap = (Map<Integer, List<Map<String, Object>>>)MapUtils.getObject(paramMap, "threadDataMap");
         this.mappingNum = MapUtils.getInteger(paramMap, "mappingNum");
     }
 
     @Override
     public void run() {
-        List<Map<Integer, Object>> dataMapList = new ArrayList<>();
+        List<Map<String, Object>> dataMapList = new ArrayList<>();
         // 封装数据
         for (; parseStartIndex < parseEndIndex; parseStartIndex++) {
             String[] dataArray = dataList.get(parseStartIndex);
-            Map<Integer, Object> dataMap = new HashMap<>();
+            // 保证有序方便动态插入，所以用LinkedHashMap
+            Map<String, Object> dataMap = new LinkedHashMap<>();
             setDataMap(dataArray, dataMap, mappingNum);
             dataMapList.add(dataMap);
         }
@@ -66,7 +68,7 @@ public class ExcelParseThread implements Runnable{
         parseThreadCountDown.countDown();
     }
 
-    private void setDataMap(String[] dataArray, Map<Integer, Object> dataMap, int mappingNum) {
+    private void setDataMap(String[] dataArray, Map<String, Object> dataMap, int mappingNum) {
         int dl = 0;
         for (int i = 0; i < mappingNum; i++) {
             String tempValue = "";
@@ -77,39 +79,37 @@ public class ExcelParseThread implements Runnable{
             String columnName = MapUtils.getString(map, "COLUMN_NAME","");
             String dataType = MapUtils.getString(map, "DATA_TYPE","");
             String enumKey = MapUtils.getString(map, "ENUM_KEY","");
-            if("CREATE_DATE".equals(columnName)){
+            /*if("CREATE_DATE".equalsIgnoreCase(columnName) || "ID".equalsIgnoreCase(columnName)){
                 // 需要自动生成的
                 dl++;
                 continue;
-            }
+            }*/
             if(StringUtils.isNotEmpty(enumKey)){
                 // 判断字段是否是枚举值
-                setEnumKeyValue(dataArray, dataMap, dl, i, tempValue, enumKey);
+                setEnumKeyValue(columnName, dataMap,  tempValue, enumKey);
             }else{
-                if ("varchar".equals(dataType)) {
-                    dataMap.put(i -dl + 1, tempValue);
-                }
-                if("int".equals(dataType)){
-                    dataMap.put(i -dl + 1, numberFilter(tempValue));
-                }
-                if("date".equals(dataType)){
-                    dataMap.put(i -dl + 1, formatDate(tempValue));
+                switch (dataType){
+                    case "int" :
+                        dataMap.put(columnName, numberFilter(tempValue));
+                        break;
+                    case "date" :
+                        dataMap.put(columnName, formatDate(tempValue));
+                        break;
+                    case "varchar" :
+                    default:
+                        dataMap.put(columnName, tempValue);
+                        break;
                 }
             }
         }
     }
 
-    private void setEnumKeyValue(String[] dataArray,
-                                 Map<Integer, Object> dataMap, int dl, int i, String tempValue,
+    private void setEnumKeyValue(String columnName,
+                                 Map<String, Object> dataMap,  String tempValue,
                                  String enumKey){
-        setEnumsValue(dataMap, i - dl + 1, tempValue, enumKey);
-    }
-
-    public void setEnumsValue(Map<Integer, Object> dataMap, int i,
-                              String tempValue, String field) {
-        String tempValue2 = tempValue.trim();
-        String enumsId = enumsService.getEnumsIdByKeywordAndDesc(field + ","+ tempValue2);
-        dataMap.put(i, "".equals(enumsId) ? tempValue2 : enumsId);
+        String value = tempValue.trim();
+        String enumsId = enumsService.getEnumsIdByKeywordAndDesc(enumKey + ","+ value);
+        dataMap.put(columnName, "".equals(enumsId) ? value : enumsId);
     }
 
     /**

@@ -22,7 +22,7 @@
         create_op, create_date, modify_op, modify_date, delete_state, delete_date
     </sql>
 
-    <select id="queryCustomerList" parameterType="com.inventory.po.basic.Customer">
+    <select id="queryCustomerList" parameterType="com.inventory.po.basic.Customer" resultMap="BaseResultMap">
         select
         <include refid="Base_Column_List" />
         from basic_customer

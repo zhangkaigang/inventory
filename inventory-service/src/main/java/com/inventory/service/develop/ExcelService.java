@@ -15,5 +15,8 @@ public interface ExcelService {
 
     List<Record> checkData(List<String[]> dataList, List<Integer> errorRowList);
 
-    List<Map<Integer, Object>> parseData(List<String[]> dataList);
+    List<Map<String, Object>> parseData(List<String[]> dataList);
+
+    void insertData(List<Map<String, Object>> dataList);
+
 }

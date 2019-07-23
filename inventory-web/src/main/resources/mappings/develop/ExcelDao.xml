@@ -17,4 +17,27 @@
         WHERE TABLE_NAME = #{tableName} AND EXCEL_TYPE = #{excelType}
         ORDER BY COLUMN_SEQ
     </select>
+
+    <insert id="batchInsertData">
+        insert into basic_customer
+            <foreach collection="mappingList"  item="mapping" separator="," open="(" close=")">
+                ${mapping.COLUMN_NAME}
+            </foreach>
+        values
+            <foreach collection="dataList" index="index" item="data" separator="," >
+                <foreach collection="data" index="key"  item="value" separator="," open="(" close=")">
+                    <choose>
+                        <when test="key == 'id'">
+                            (select fun_next_seq('SEQ_BASIC_CUSTOMER'))
+                        </when>
+                        <when test="key == 'create_date'">
+                            CURRENT_TIMESTAMP
+                        </when>
+                        <otherwise>
+                            #{value}
+                        </otherwise>
+                    </choose>
+                </foreach>
+            </foreach>
+    </insert>
 </mapper>

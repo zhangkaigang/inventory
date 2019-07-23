@@ -16,4 +16,7 @@ public interface ExcelDao {
     List<Map<String,Object>>  getExcelTableMapping(@Param("tableName") String tableName,
                                                    @Param("excelType") String excelType);
 
+    int batchInsertData(@Param("mappingList") List<Map<String,Object>> mappingList,
+                        @Param("dataList") List<Map<String, Object>> dataList);
+
 }
