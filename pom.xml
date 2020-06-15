@@ -40,7 +40,7 @@
         <commons-fileupload.version>1.3.1</commons-fileupload.version>
         <json-lib.version>2.4</json-lib.version>
         <commons-beanutils.version>1.8.0</commons-beanutils.version>
-        <commons-collections.version>3.2</commons-collections.version>
+        <commons-collections.version>3.2.2</commons-collections.version>
         <commons-lang.version>2.5</commons-lang.version>
         <ezmorph.version>1.0.3</ezmorph.version>
         <dozer.version>5.5.1</dozer.version>
